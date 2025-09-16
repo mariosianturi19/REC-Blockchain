@@ -1,178 +1,176 @@
 ---
 Organizations:
-    - &OrdererOrg
-        Name: OrdererMSP
-        ID: OrdererMSP
-        MSPDir: organizations/ordererOrganizations/rec.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('OrdererMSP.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('OrdererMSP.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('OrdererMSP.admin')"
 
-    - &Generator
-        Name: GeneratorMSP
-        ID: GeneratorMSP
-        MSPDir: organizations/peerOrganizations/org1.rec.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('GeneratorMSP.admin', 'GeneratorMSP.peer', 'GeneratorMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('GeneratorMSP.admin', 'GeneratorMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('GeneratorMSP.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('GeneratorMSP.peer')"
-        AnchorPeers:
-            - Host: peer0.org1.rec.com
-              Port: 7051
+  - &OrdererOrg
+    Name: OrdererMSP
+    ID: OrdererMSP
+    MSPDir: organizations/ordererOrganizations/rec.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('OrdererMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('OrdererMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('OrdererMSP.admin')"
 
-    - &Issuer
-        Name: IssuerMSP
-        ID: IssuerMSP
-        MSPDir: organizations/peerOrganizations/org2.rec.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('IssuerMSP.admin', 'IssuerMSP.peer', 'IssuerMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('IssuerMSP.admin', 'IssuerMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('IssuerMSP.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('IssuerMSP.peer')"
-        AnchorPeers:
-            - Host: peer0.org2.rec.com
-              Port: 9051
+  - &Generator
+    Name: GeneratorMSP
+    ID: GeneratorMSP
+    MSPDir: organizations/peerOrganizations/generator.rec.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('GeneratorMSP.admin','GeneratorMSP.peer','GeneratorMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('GeneratorMSP.admin','GeneratorMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('GeneratorMSP.admin')"
+    AnchorPeers:
+      - Host: peer0.generator.rec.com
+        Port: 7051
 
-    - &Buyer
-        Name: BuyerMSP
-        ID: BuyerMSP
-        MSPDir: organizations/peerOrganizations/org3.rec.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('BuyerMSP.admin', 'BuyerMSP.peer', 'BuyerMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('BuyerMSP.admin', 'BuyerMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('BuyerMSP.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('BuyerMSP.peer')"
-        AnchorPeers:
-            - Host: peer0.org3.rec.com
-              Port: 11051
+  - &Issuer
+    Name: IssuerMSP
+    ID: IssuerMSP
+    MSPDir: organizations/peerOrganizations/issuer.rec.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('IssuerMSP.admin','IssuerMSP.peer','IssuerMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('IssuerMSP.admin','IssuerMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('IssuerMSP.admin')"
+    AnchorPeers:
+      - Host: peer0.issuer.rec.com
+        Port: 9051
+
+  - &Buyer
+    Name: BuyerMSP
+    ID: BuyerMSP
+    MSPDir: organizations/peerOrganizations/buyer.rec.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('BuyerMSP.admin','BuyerMSP.peer','BuyerMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('BuyerMSP.admin','BuyerMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('BuyerMSP.admin')"
+    AnchorPeers:
+      - Host: peer0.buyer.rec.com
+        Port: 11051
 
 Capabilities:
-    Channel: &ChannelCapabilities
-        V2_0: true
-    Orderer: &OrdererCapabilities
-        V2_0: true
-    Application: &ApplicationCapabilities
-        V2_0: true
+  Channel: &ChannelCapabilities
+    V2_0: true
+  Orderer: &OrdererCapabilities
+    V2_0: true
+  Application: &ApplicationCapabilities
+    V2_5: true
 
 Application: &ApplicationDefaults
-    Organizations:
-    Policies:
-        Readers:
-            Type: ImplicitMeta
-            Rule: "ANY Readers"
-        Writers:
-            Type: ImplicitMeta
-            Rule: "ANY Writers"
-        Admins:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Admins"
-        LifecycleEndorsement:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Endorsement"
-        Endorsement:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Endorsement"
+  ACLs: {}
+  Organizations: []
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+  Capabilities:
+    <<: *ApplicationCapabilities
 
 Orderer: &OrdererDefaults
-    OrdererType: etcdraft
-    EtcdRaft:
-        Consenters:
-            - Host: orderer.rec.com
-              Port: 7050
-              ClientTLSCert: organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/tls/server.crt
-              ServerTLSCert: organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/tls/server.crt
-    Addresses:
-        - orderer.rec.com:7050
-    BatchTimeout: 2s
-    BatchSize:
-        MaxMessageCount: 10
-        AbsoluteMaxBytes: 99 MB
-        PreferredMaxBytes: 512 KB
-    Organizations:
-    Policies:
-        Readers:
-            Type: ImplicitMeta
-            Rule: "ANY Readers"
-        Writers:
-            Type: ImplicitMeta
-            Rule: "ANY Writers"
-        Admins:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Admins"
-        BlockValidation:
-            Type: ImplicitMeta
-            Rule: "ANY Writers"
+  OrdererType: etcdraft
+  Addresses:
+    - orderer.rec.com:7050
+  EtcdRaft:
+    Consenters:
+      - Host: orderer.rec.com
+        Port: 7050
+        ClientTLSCert: organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/tls/server.crt
+        ServerTLSCert: organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/tls/server.crt
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    BlockValidation:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+  Capabilities:
+    <<: *OrdererCapabilities
+  Organizations: []
 
 Channel: &ChannelDefaults
-    Policies:
-        Readers:
-            Type: ImplicitMeta
-            Rule: "ANY Readers"
-        Writers:
-            Type: ImplicitMeta
-            Rule: "ANY Writers"
-        Admins:
-            Type: ImplicitMeta
-            Rule: "MAJORITY Admins"
-    Capabilities:
-        <<: *ChannelCapabilities
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+  Capabilities:
+    <<: *ChannelCapabilities
 
 Profiles:
-    RECOrdererGenesis:
-        <<: *ChannelDefaults
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
-        Consortiums:
-            RECConsortium:
-                Organizations:
-                    - *Generator
-                    - *Issuer
-                    - *Buyer
+  RECOrdererGenesis:
+    <<: *ChannelDefaults
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg
+    Consortiums:
+      RECConsortium:
+        Organizations:
+          - *Generator
+          - *Issuer
+          - *Buyer
 
-    RECChannel:
-        Consortium: RECConsortium
-        <<: *ChannelDefaults
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Generator
-                - *Issuer
-                - *Buyer
-            Capabilities:
-                <<: *ApplicationCapabilities
+  RECChannel:
+    Consortium: RECConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Generator
+        - *Issuer
+        - *Buyer
+      Policies:
+        Readers:
+          Type: ImplicitMeta
+          Rule: "ANY Readers"
+        Writers:
+          Type: ImplicitMeta
+          Rule: "ANY Writers"
+        Admins:
+          Type: ImplicitMeta
+          Rule: "MAJORITY Admins"
+      Capabilities:
+        <<: *ApplicationCapabilities
