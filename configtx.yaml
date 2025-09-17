@@ -1,7 +1,6 @@
----
 Organizations:
-
-  - &OrdererOrg
+  # ----- Orderer MSP -----
+  - &Orderer
     Name: OrdererMSP
     ID: OrdererMSP
     MSPDir: organizations/ordererOrganizations/rec.com/msp
@@ -16,6 +15,7 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
 
+  # ----- Generator MSP -----
   - &Generator
     Name: GeneratorMSP
     ID: GeneratorMSP
@@ -34,6 +34,7 @@ Organizations:
       - Host: peer0.generator.rec.com
         Port: 7051
 
+  # ----- Issuer MSP -----
   - &Issuer
     Name: IssuerMSP
     ID: IssuerMSP
@@ -52,6 +53,7 @@ Organizations:
       - Host: peer0.issuer.rec.com
         Port: 9051
 
+  # ----- Buyer MSP -----
   - &Buyer
     Name: BuyerMSP
     ID: BuyerMSP
@@ -76,7 +78,7 @@ Capabilities:
   Orderer: &OrdererCapabilities
     V2_0: true
   Application: &ApplicationCapabilities
-    V2_5: true
+    V2_0: true
 
 Application: &ApplicationDefaults
   ACLs: {}
@@ -141,12 +143,13 @@ Channel: &ChannelDefaults
     <<: *ChannelCapabilities
 
 Profiles:
+  # Genesis profile
   RECOrdererGenesis:
     <<: *ChannelDefaults
     Orderer:
       <<: *OrdererDefaults
       Organizations:
-        - *OrdererOrg
+        - *Orderer
     Consortiums:
       RECConsortium:
         Organizations:
@@ -154,6 +157,7 @@ Profiles:
           - *Issuer
           - *Buyer
 
+  # Application channel profile
   RECChannel:
     Consortium: RECConsortium
     Application:
