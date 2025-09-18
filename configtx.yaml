@@ -1,6 +1,6 @@
 Organizations:
   # ----- Orderer MSP -----
-  - &Orderer
+  - &OrdererOrg
     Name: OrdererMSP
     ID: OrdererMSP
     MSPDir: organizations/ordererOrganizations/rec.com/msp
@@ -14,9 +14,14 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('OrdererMSP.member')"
+    OrdererEndpoints:
+      - orderer.rec.com:7050
 
-  # ----- Generator MSP -----
-  - &Generator
+  # ----- Generator Organization MSP -----
+  - &GeneratorOrg
     Name: GeneratorMSP
     ID: GeneratorMSP
     MSPDir: organizations/peerOrganizations/generator.rec.com/msp
@@ -30,12 +35,15 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('GeneratorMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('GeneratorMSP.peer')"
     AnchorPeers:
       - Host: peer0.generator.rec.com
         Port: 7051
 
-  # ----- Issuer MSP -----
-  - &Issuer
+  # ----- Issuer Organization MSP -----
+  - &IssuerOrg
     Name: IssuerMSP
     ID: IssuerMSP
     MSPDir: organizations/peerOrganizations/issuer.rec.com/msp
@@ -49,12 +57,15 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('IssuerMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('IssuerMSP.peer')"
     AnchorPeers:
       - Host: peer0.issuer.rec.com
         Port: 9051
 
-  # ----- Buyer MSP -----
-  - &Buyer
+  # ----- Buyer Organization MSP -----
+  - &BuyerOrg
     Name: BuyerMSP
     ID: BuyerMSP
     MSPDir: organizations/peerOrganizations/buyer.rec.com/msp
@@ -68,6 +79,9 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('BuyerMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('BuyerMSP.peer')"
     AnchorPeers:
       - Host: peer0.buyer.rec.com
         Port: 11051
@@ -78,10 +92,9 @@ Capabilities:
   Orderer: &OrdererCapabilities
     V2_0: true
   Application: &ApplicationCapabilities
-    V2_0: true
+    V2_5: true
 
 Application: &ApplicationDefaults
-  ACLs: {}
   Organizations: []
   Policies:
     Readers:
@@ -93,6 +106,12 @@ Application: &ApplicationDefaults
     Admins:
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
+    LifecycleEndorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+    Endorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
   Capabilities:
     <<: *ApplicationCapabilities
 
@@ -111,6 +130,7 @@ Orderer: &OrdererDefaults
     MaxMessageCount: 10
     AbsoluteMaxBytes: 99 MB
     PreferredMaxBytes: 512 KB
+  Organizations: []
   Policies:
     Readers:
       Type: ImplicitMeta
@@ -126,7 +146,6 @@ Orderer: &OrdererDefaults
       Rule: "ANY Writers"
   Capabilities:
     <<: *OrdererCapabilities
-  Organizations: []
 
 Channel: &ChannelDefaults
   Policies:
@@ -143,29 +162,31 @@ Channel: &ChannelDefaults
     <<: *ChannelCapabilities
 
 Profiles:
-  # Genesis profile
+  # Genesis profile untuk sistem channel orderer
   RECOrdererGenesis:
     <<: *ChannelDefaults
     Orderer:
       <<: *OrdererDefaults
       Organizations:
-        - *Orderer
+        - *OrdererOrg
+      Capabilities: *OrdererCapabilities
     Consortiums:
       RECConsortium:
         Organizations:
-          - *Generator
-          - *Issuer
-          - *Buyer
+          - *GeneratorOrg
+          - *IssuerOrg
+          - *BuyerOrg
 
-  # Application channel profile
-  RECChannel:
+  # Application channel profile untuk REC channel
+  RECApplicationChannel:
     Consortium: RECConsortium
+    <<: *ChannelDefaults
     Application:
       <<: *ApplicationDefaults
       Organizations:
-        - *Generator
-        - *Issuer
-        - *Buyer
+        - *GeneratorOrg
+        - *IssuerOrg
+        - *BuyerOrg
       Policies:
         Readers:
           Type: ImplicitMeta
@@ -176,5 +197,22 @@ Profiles:
         Admins:
           Type: ImplicitMeta
           Rule: "MAJORITY Admins"
-      Capabilities:
-        <<: *ApplicationCapabilities
+        LifecycleEndorsement:
+          Type: ImplicitMeta
+          Rule: "MAJORITY Endorsement"
+        Endorsement:
+          Type: ImplicitMeta
+          Rule: "MAJORITY Endorsement"
+      Capabilities: *ApplicationCapabilities
+
+  # Profile untuk channel tambahan jika diperlukan
+  RECMainChannel:
+    Consortium: RECConsortium
+    <<: *ChannelDefaults
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *GeneratorOrg
+        - *IssuerOrg
+        - *BuyerOrg
+      Capabilities: *ApplicationCapabilities

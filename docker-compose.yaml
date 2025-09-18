@@ -1,5 +1,7 @@
 networks:
   rec-net:
+    name: rec-blockchain-network
+    driver: bridge
 
 services:
   # ----- Certificate Authorities -----
@@ -10,13 +12,15 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-orderer
-      - FABRIC_CA_SERVER_PORT=7053
+      - FABRIC_CA_SERVER_PORT=7055
+      - FABRIC_LOGGING_SPEC=INFO
     ports:
-      - "7053:7053"
+      - "7055:7055"
     command: sh -c "fabric-ca-server start -b admin:adminpw -d"
     volumes:
       - ./organizations/fabric-ca/orderer:/etc/hyperledger/fabric-ca-server
     networks: [rec-net]
+    restart: unless-stopped
 
   ca.generator.rec.com:
     container_name: ca.generator.rec.com
@@ -26,12 +30,14 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-generator
       - FABRIC_CA_SERVER_PORT=7054
+      - FABRIC_LOGGING_SPEC=INFO
     ports:
       - "7054:7054"
     command: sh -c "fabric-ca-server start -b admin:adminpw -d"
     volumes:
       - ./organizations/fabric-ca/generator:/etc/hyperledger/fabric-ca-server
     networks: [rec-net]
+    restart: unless-stopped
 
   ca.issuer.rec.com:
     container_name: ca.issuer.rec.com
@@ -41,12 +47,14 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-issuer
       - FABRIC_CA_SERVER_PORT=8054
+      - FABRIC_LOGGING_SPEC=INFO
     ports:
       - "8054:8054"
     command: sh -c "fabric-ca-server start -b admin:adminpw -d"
     volumes:
       - ./organizations/fabric-ca/issuer:/etc/hyperledger/fabric-ca-server
     networks: [rec-net]
+    restart: unless-stopped
 
   ca.buyer.rec.com:
     container_name: ca.buyer.rec.com
@@ -56,18 +64,21 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-buyer
       - FABRIC_CA_SERVER_PORT=9054
+      - FABRIC_LOGGING_SPEC=INFO
     ports:
       - "9054:9054"
     command: sh -c "fabric-ca-server start -b admin:adminpw -d"
     volumes:
       - ./organizations/fabric-ca/buyer:/etc/hyperledger/fabric-ca-server
     networks: [rec-net]
+    restart: unless-stopped
 
   # ----- Orderer -----
   orderer.rec.com:
     container_name: orderer.rec.com
     image: hyperledger/fabric-orderer:2.5.13
     environment:
+      - FABRIC_LOGGING_SPEC=INFO
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_LISTENPORT=7050
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
@@ -78,12 +89,24 @@ services:
       - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:7056
     volumes:
       - ./system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ./organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp:/var/hyperledger/orderer/msp
       - ./organizations/ordererOrganizations/rec.com/orderers/orderer.rec.com/tls:/var/hyperledger/orderer/tls
-    ports: ["7050:7050"]
+    ports: 
+      - "7050:7050"
+      - "7056:7056"
     networks: [rec-net]
+    restart: unless-stopped
 
   # ----- CouchDB -----
   couchdb0.generator:
