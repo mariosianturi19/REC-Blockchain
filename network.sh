@@ -1,42 +1,30 @@
 #!/usr/bin/env bash
 set -e
 
-# network.sh
-# Skrip untuk menjalankan jaringan Hyperledger Fabric dengan 3 organisasi (Generator, Issuer, Buyer)
-# serta orderer, CouchDB, 2 peer per organisasi, dan empat CA. Skrip ini otomatis membuat
-# direktori CA, mengatur user ID untuk container CA, dan dapat meng-deploy chaincode jika diinginkan.
-
-# Path dan variabel dasar
 export COMPOSE_FILE=./docker-compose.yaml
 export COMPOSE_PROJECT_NAME=rec-project
 export FABRIC_CFG_PATH=${PWD}
 
-# Ekspor UID & GID dari user host untuk digunakan di docker-compose (CA services)
 export COMPOSE_UID=$(id -u)
 export COMPOSE_GID=$(id -g)
 
-# Konfigurasi channel
 CHANNEL_NAME="recchannel"
 MAIN_CHANNEL="mainrec"
 
-# Chaincode configuration (untuk blockchain developer nanti)
 CC_NAME="rec"
 CC_VERSION="1.0"
 CC_SEQUENCE="1"
 CC_SRC_PATH_IN_CONTAINER="/opt/gopath/src/github.com/chaincode/rec/javascript/"
 
-# Network management options
 AUTO_DEPLOY=false
 CREATE_MAIN_CHANNEL=false
-NETWORK_ONLY=true  # Fokus pada network architecture saja
-
+NETWORK_ONLY=true  
 if [[ "$2" == "--auto" ]]; then AUTO_DEPLOY=true; fi
 if [[ "$3" == "--main" ]] || [[ "$2" == "--main" ]]; then CREATE_MAIN_CHANNEL=true; fi
 if [[ "$2" == "--with-chaincode" ]]; then NETWORK_ONLY=false; fi
 
-###############################################################################
+
 # Fungsi utilitas
-###############################################################################
 
 # Menghentikan dan menghapus semua kontainer terkait proyek serta dev-peer
 clearContainers() {
@@ -92,9 +80,9 @@ networkUp() {
   docker ps -a
 }
 
-###############################################################################
+
 # Operasi channel
-###############################################################################
+
 
 # Membuat channel genesis transaction dan genesis block
 createChannel() {
@@ -318,9 +306,9 @@ updateAnchorPeers() {
   echo "Anchor peers updated successfully for channel ${CHANNEL_TO_UPDATE}"
 }
 
-###############################################################################
+
 # Operasi chaincode (opsional)
-###############################################################################
+
 
 # Pastikan path chaincode ada dalam container CLI (untuk blockchain developer)
 checkChaincodePath() {
@@ -388,9 +376,10 @@ approveAndCommit() {
     -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
     -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/users/Admin@generator.rec.com/msp \
     -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
-    cli peer lifecycle chaincode queryinstalled >&log.txt
+    cli peer lifecycle chaincode queryinstalled > /tmp/chaincode_query.log 2>&1
     
-  PACKAGE_ID=$(sed -n "/Package ID: ${CC_NAME}_${CC_VERSION}/,/Label:/p" log.txt | sed -n 's/Package ID: //; s/, Label:.*//p')
+  PACKAGE_ID=$(sed -n "/Package ID: ${CC_NAME}_${CC_VERSION}/,/Label:/p" /tmp/chaincode_query.log | sed -n 's/Package ID: //; s/, Label:.*//p')
+  rm -f /tmp/chaincode_query.log
   echo "Package ID: $PACKAGE_ID"
   
   if [ -z "$PACKAGE_ID" ]; then
@@ -502,9 +491,9 @@ deployCC() {
   if $AUTO_DEPLOY; then approveAndCommit; fi
 }
 
-###############################################################################
+
 # Main entry point
-###############################################################################
+
 
 case "$1" in
   restart)
@@ -524,9 +513,7 @@ case "$1" in
       echo "Main Channel: $MAIN_CHANNEL also created"
     fi
     if [ "$NETWORK_ONLY" = true ]; then
-      echo ""
-      echo "All organizations connected"
-      echo "Channels created and peers joined"
+      echo "Network ready for chaincode deployment"
     fi
     ;;
   down)
@@ -554,6 +541,35 @@ case "$1" in
     else
       echo "Usage: ./network.sh channel create [main]"
     fi
+    ;;
+  chaincode)
+    echo "Chaincode lifecycle script: ./scripts/chaincode-lifecycle.sh"
+    echo ""
+    echo "Commands:"
+    echo "  ./scripts/chaincode-lifecycle.sh deploy          # Complete lifecycle"
+    echo "  ./scripts/chaincode-lifecycle.sh approve         # Approve chaincode"
+    echo "  ./scripts/chaincode-lifecycle.sh commit          # Commit chaincode"
+    echo "  ./scripts/chaincode-lifecycle.sh query-committed # Check status"
+    ;;
+  test)
+    echo "Use 'docker ps' to check running containers"
+    ;;
+  *)
+    echo "Usage: ./network.sh [restart|down|upgrade|channel|test|chaincode] [options]"
+    echo ""
+    echo "Commands:"
+    echo "  restart [--main]               : Setup network"
+    echo "  down                          : Stop network"
+    echo "  channel create [main]         : Create channels"
+    echo "  test                          : Check status"
+    echo "  chaincode                     : Chaincode commands"
+    echo "  upgrade --with-chaincode      : Deploy chaincode"
+    echo ""
+    echo "Examples:"
+    echo "  ./network.sh restart"
+    echo "  ./network.sh chaincode"
+    echo "  ./network.sh down"
+    exit 1
     ;;
 esac
 
