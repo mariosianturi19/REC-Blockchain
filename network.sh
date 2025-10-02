@@ -14,24 +14,64 @@ MAIN_CHANNEL="mainrec"
 CC_NAME="rec"
 CC_VERSION="1.0"
 CC_SEQUENCE="1"
-CC_SRC_PATH_IN_CONTAINER="/opt/gopath/src/github.com/chaincode/rec/javascript/"
+CC_SRC_PATH_IN_CONTAINER="/opt/gopath/src/github.com/chaincode/lib/"
 
 AUTO_DEPLOY=false
 CREATE_MAIN_CHANNEL=false
-NETWORK_ONLY=true  
+NETWORK_ONLY=true
+AUTO_APPROVE_COMMIT=false
+
+# Parse arguments
 if [[ "$2" == "--auto" ]]; then AUTO_DEPLOY=true; fi
 if [[ "$3" == "--main" ]] || [[ "$2" == "--main" ]]; then CREATE_MAIN_CHANNEL=true; fi
 if [[ "$2" == "--with-chaincode" ]]; then NETWORK_ONLY=false; fi
-
+if [[ "$2" == "--auto-approve" ]] || [[ "$3" == "--auto-approve" ]] || [[ "$4" == "--auto-approve" ]]; then 
+  AUTO_APPROVE_COMMIT=true
+  NETWORK_ONLY=false
+fi
 
 # Fungsi utilitas
 
+# Fungsi untuk membersihkan network yang konflik
+cleanupNetworks() {
+  echo "Cleaning up conflicting networks..."
+  
+  # Hapus network yang mungkin konflik
+  docker network rm rec-blockchain-network >/dev/null 2>&1 || true
+  docker network rm ${COMPOSE_PROJECT_NAME}_rec-net >/dev/null 2>&1 || true
+  
+  # Hapus network orphan lainnya yang mungkin ada
+  docker network ls --format "table {{.Name}}" | grep -E "(rec-|blockchain)" | while read network; do
+    if [ "$network" != "NAME" ]; then
+      docker network rm "$network" >/dev/null 2>&1 || true
+    fi
+  done
+  
+  # Clean up unused networks
+  docker network prune -f >/dev/null 2>&1 || true
+  
+  echo "Network cleanup completed"
+}
+
 # Menghentikan dan menghapus semua kontainer terkait proyek serta dev-peer
 clearContainers() {
-  echo "Menghapus kontainer..."
+  echo "Menghapus kontainer dan network..."
+  
+  # Stop dan hapus containers dengan docker compose
   docker compose -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT_NAME" down --volumes --remove-orphans || true
+  
+  # Hapus containers yang mungkin tertinggal
   docker rm -f $(docker ps -aq --filter "name=${COMPOSE_PROJECT_NAME}") >/dev/null 2>&1 || true
   docker rm -f $(docker ps -a | grep "dev-peer" | awk '{print $1}') >/dev/null 2>&1 || true
+  
+  # Bersihkan network yang konflik
+  cleanupNetworks
+  
+  # Clean up containers dan volumes yang tidak terpakai
+  docker container prune -f >/dev/null 2>&1 || true
+  docker volume prune -f >/dev/null 2>&1 || true
+  
+  echo "Container and network cleanup completed"
 }
 
 # Menghapus artefak lama (kecuali direktori CA) dan menyiapkan struktur direktori
@@ -65,24 +105,34 @@ createGenesisBlock() {
   ./bin/configtxgen -profile RECOrdererGenesis -channelID system-channel -outputBlock ./system-genesis-block/genesis.block -configPath .
 }
 
-# Menghidupkan jaringan docker
+# Menghidupkan jaringan docker dengan network cleanup
 networkUp() {
   downloadFabricBinaries
   generateCrypto
+  
   # Buat direktori CA agar persisten dan pemiliknya benar
   mkdir -p ./organizations/fabric-ca/orderer \
            ./organizations/fabric-ca/generator \
            ./organizations/fabric-ca/issuer \
            ./organizations/fabric-ca/buyer
+           
   createGenesisBlock
+  
+  # Pastikan network bersih sebelum memulai
+  echo "Ensuring clean network environment..."
+  cleanupNetworks
+  
   echo "Menjalankan docker containers..."
   docker compose -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT_NAME" up -d
+  
+  # Wait untuk memastikan containers siap
+  echo "Waiting for containers to be ready..."
+  sleep 10
+  
   docker ps -a
 }
 
-
 # Operasi channel
-
 
 # Membuat channel genesis transaction dan genesis block
 createChannel() {
@@ -306,11 +356,9 @@ updateAnchorPeers() {
   echo "Anchor peers updated successfully for channel ${CHANNEL_TO_UPDATE}"
 }
 
+# Operasi chaincode (IMPROVED WITH AUTO APPROVE & COMMIT)
 
-# Operasi chaincode (opsional)
-
-
-# Pastikan path chaincode ada dalam container CLI (untuk blockchain developer)
+# Pastikan path chaincode ada dalam container CLI
 checkChaincodePath() {
   if [ "$NETWORK_ONLY" = true ]; then
     echo "Skipping chaincode path check - Network architecture focus mode"
@@ -319,26 +367,38 @@ checkChaincodePath() {
   
   docker exec cli bash -lc "test -d '${CC_SRC_PATH_IN_CONTAINER}'" || { 
     echo "WARNING: Chaincode folder tidak ditemukan: ${CC_SRC_PATH_IN_CONTAINER}"
-    echo "Ini normal jika belum ada chaincode. Blockchain developer akan menyediakan nanti."
+    echo "Pastikan blockchain developer sudah menyediakan chaincode di folder ./chaincode/lib/"
     return 1
   }
 }
 
-# Package & install chaincode di semua peer (untuk blockchain developer)
-packageAndInstall() {
-  if [ "$NETWORK_ONLY" = true ]; then
-    echo "Skipping Chaincode Operations - Network architecture mode"
-    echo "Blockchain developer akan handle chaincode deployment nanti"
-    return 0
-  fi
+# Package chaincode
+packageChaincode() {
+  echo "==== PACKAGING CHAINCODE ===="
+  echo "Packaging chaincode ${CC_NAME} v${CC_VERSION}..."
   
-  echo "Package and Install Chaincode..."
+  # Check if chaincode path exists
   checkChaincodePath || return 1
   
-  echo "Packaging chaincode..."
-  docker exec cli peer lifecycle chaincode package ${CC_NAME}_${CC_VERSION}.tar.gz --path ${CC_SRC_PATH_IN_CONTAINER} --lang node --label ${CC_NAME}_${CC_VERSION}
+  # Package chaincode
+  docker exec cli peer lifecycle chaincode package ${CC_NAME}_${CC_VERSION}.tar.gz \
+    --path ${CC_SRC_PATH_IN_CONTAINER} \
+    --lang node \
+    --label ${CC_NAME}_${CC_VERSION}
   
-  echo "Installing chaincode on all peers..."
+  if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to package chaincode"
+    exit 1
+  fi
+  
+  echo "SUCCESS: Chaincode package created: ${CC_NAME}_${CC_VERSION}.tar.gz"
+}
+
+# Install chaincode di semua peer
+installChaincode() {
+  echo "==== INSTALLING CHAINCODE ===="
+  echo "Installing chaincode ${CC_NAME} v${CC_VERSION} on all peers..."
+  
   for entry in \
     "GeneratorMSP peer0.generator.rec.com 7051 generator.rec.com peer0.generator.rec.com" \
     "GeneratorMSP peer1.generator.rec.com 8051 generator.rec.com peer1.generator.rec.com" \
@@ -349,6 +409,7 @@ packageAndInstall() {
   do
     set -- $entry
     MSP=$1; HOST=$2; PORT=$3; DOM=$4; PEER=$5
+    
     echo "Installing on ${PEER}..."
     docker exec \
       -e CORE_PEER_LOCALMSPID=$MSP \
@@ -356,21 +417,23 @@ packageAndInstall() {
       -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/${DOM}/users/Admin@${DOM}/msp \
       -e CORE_PEER_ADDRESS=${HOST}:${PORT} \
       cli peer lifecycle chaincode install ${CC_NAME}_${CC_VERSION}.tar.gz
+      
+    if [ $? -ne 0 ]; then
+      echo "ERROR: Failed to install chaincode on ${PEER}"
+      exit 1
+    fi
   done
+  
+  echo "SUCCESS: Chaincode installed on all peers"
 }
 
-# Approve dan commit chaincode untuk semua organisasi dengan validasi (untuk blockchain developer)
-approveAndCommit() {
-  if [ "$NETWORK_ONLY" = true ]; then
-    echo "Skipping Chaincode Approve & Commit - Network architecture mode"
-    echo "Blockchain developer akan handle ini dengan: ./network.sh upgrade --with-chaincode"
-    return 0
-  fi
-  
-  echo "Approve and Commit Chaincode..."
+# Auto approve chaincode untuk semua organisasi
+autoApproveChaincode() {
+  echo "==== AUTO APPROVING CHAINCODE ===="
+  echo "Auto approving chaincode ${CC_NAME} v${CC_VERSION} for all organizations..."
   
   # Query installed chaincode untuk mendapatkan package ID
-  echo "Querying installed chaincode..."
+  echo "Querying installed chaincode untuk mendapatkan Package ID..."
   docker exec \
     -e CORE_PEER_LOCALMSPID=GeneratorMSP \
     -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
@@ -383,11 +446,11 @@ approveAndCommit() {
   echo "Package ID: $PACKAGE_ID"
   
   if [ -z "$PACKAGE_ID" ]; then
-    echo "Error: Package ID not found. Make sure chaincode is installed."
+    echo "ERROR: Package ID not found. Pastikan chaincode sudah di-install."
     exit 1
   fi
 
-  # Approve chaincode untuk setiap organisasi
+  # Auto approve chaincode untuk setiap organisasi
   for entry in \
     "GeneratorMSP peer0.generator.rec.com 7051 generator.rec.com" \
     "IssuerMSP    peer0.issuer.rec.com    9051 issuer.rec.com" \
@@ -396,7 +459,7 @@ approveAndCommit() {
     set -- $entry
     MSP=$1; HOST=$2; PORT=$3; DOM=$4
     
-    echo "Approving chaincode for ${MSP}..."
+    echo "Auto approving chaincode untuk ${MSP}..."
     docker exec \
       -e CORE_PEER_LOCALMSPID=$MSP \
       -e CORE_PEER_ADDRESS=${HOST}:${PORT} \
@@ -414,13 +477,21 @@ approveAndCommit() {
         --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem
         
     if [ $? -ne 0 ]; then
-      echo "Failed to approve chaincode for ${MSP}"
+      echo "ERROR: Failed to approve chaincode untuk ${MSP}"
       exit 1
     fi
+    
+    echo "SUCCESS: Chaincode approved untuk ${MSP}"
   done
+  
+  echo "SUCCESS: All organizations have approved the chaincode"
+}
 
-  # Check commit readiness
-  echo "Checking commit readiness..."
+# Check commit readiness
+checkCommitReadiness() {
+  echo "==== CHECKING COMMIT READINESS ===="
+  echo "Checking commit readiness for chaincode ${CC_NAME} v${CC_VERSION}..."
+  
   docker exec \
     -e CORE_PEER_LOCALMSPID=GeneratorMSP \
     -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
@@ -434,9 +505,15 @@ approveAndCommit() {
       --tls \
       --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem \
       --output json
+      
+  echo "Commit readiness check completed"
+}
 
-  # Commit chaincode
-  echo "Committing chaincode..."
+autoCommitChaincode() {
+  echo "==== AUTO COMMITTING CHAINCODE ===="
+  echo "Auto committing chaincode ${CC_NAME} v${CC_VERSION} to channel ${CHANNEL_NAME}..."
+  
+  # Commit from GeneratorMSP
   docker exec \
     -e CORE_PEER_LOCALMSPID=GeneratorMSP \
     -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
@@ -458,15 +535,41 @@ approveAndCommit() {
       --peerAddresses peer0.buyer.rec.com:11051 \
       --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt
 
+  # Commit from IssuerMSP (tambahan untuk memenuhi mayoritas)
+  docker exec \
+    -e CORE_PEER_LOCALMSPID=IssuerMSP \
+    -e CORE_PEER_ADDRESS=peer0.issuer.rec.com:9051 \
+    -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/users/Admin@issuer.rec.com/msp \
+    -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt \
+    cli peer lifecycle chaincode commit \
+      -o orderer.rec.com:7050 \
+      --ordererTLSHostnameOverride orderer.rec.com \
+      --channelID $CHANNEL_NAME \
+      --name $CC_NAME \
+      --version $CC_VERSION \
+      --sequence $CC_SEQUENCE \
+      --tls \
+      --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem \
+      --peerAddresses peer0.generator.rec.com:7051 \
+      --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+      --peerAddresses peer0.issuer.rec.com:9051 \
+      --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt \
+      --peerAddresses peer0.buyer.rec.com:11051 \
+      --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt
+
   if [ $? -ne 0 ]; then
-    echo "Failed to commit chaincode"
+    echo "ERROR: Failed to commit chaincode"
     exit 1
   fi
 
-  echo "Chaincode committed successfully"
+  echo "SUCCESS: Chaincode committed successfully to channel ${CHANNEL_NAME}"
+}
+
+# Query committed chaincode untuk verifikasi
+queryCommittedChaincode() {
+  echo "==== VERIFYING COMMITTED CHAINCODE ===="
+  echo "Verifying committed chaincode ${CC_NAME} v${CC_VERSION}..."
   
-  # Query committed chaincode untuk verifikasi
-  echo "Verifying committed chaincode..."
   docker exec \
     -e CORE_PEER_LOCALMSPID=GeneratorMSP \
     -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
@@ -477,23 +580,99 @@ approveAndCommit() {
       --name $CC_NAME \
       --tls \
       --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem
+      
+  echo "Chaincode verification completed"
 }
 
-# Deploy chaincode: package, install, dan jika AUTO_DEPLOY true, approve & commit
-deployCC() {
+# Deploy chaincode dengan auto approve dan commit
+deployChaincode() {
   if [ "$NETWORK_ONLY" = true ]; then
     echo "Chaincode Deployment Skipped - Running in network architecture mode"
-    echo "Para blockchain developer bisa deploy chaincode dengan: ./network.sh upgrade --with-chaincode"
+    echo "Para blockchain developer bisa deploy chaincode dengan: ./network.sh deploy-chaincode"
     return 0
   fi
   
-  packageAndInstall
-  if $AUTO_DEPLOY; then approveAndCommit; fi
+  echo "========================================"
+  echo "    CHAINCODE DEPLOYMENT STARTED"
+  echo "========================================"
+  echo "Deploying chaincode: ${CC_NAME} v${CC_VERSION}"
+  echo "Target channel: ${CHANNEL_NAME}"
+  echo "Auto approve: ${AUTO_APPROVE_COMMIT}"
+  echo ""
+  
+  # Step 1: Package chaincode
+  packageChaincode
+  echo ""
+  
+  # Step 2: Install chaincode
+  installChaincode
+  echo ""
+  
+  # Step 3: Auto approve dan commit jika diminta
+  if $AUTO_APPROVE_COMMIT; then
+    # Step 3a: Auto approve
+    autoApproveChaincode
+    echo ""
+    
+    # Step 3b: Check commit readiness
+    checkCommitReadiness
+    echo ""
+    
+    # Step 3c: Auto commit
+    autoCommitChaincode
+    echo ""
+    
+    # Step 3d: Verify
+    queryCommittedChaincode
+    echo ""
+    
+    echo "========================================"
+    echo "  CHAINCODE DEPLOYMENT COMPLETED!"
+    echo "========================================"
+    echo "✅ Chaincode ${CC_NAME} v${CC_VERSION} berhasil di-deploy!"
+    echo "✅ Semua organisasi telah auto approve dan commit"
+    echo "✅ Chaincode siap digunakan di channel ${CHANNEL_NAME}"
+  else
+    echo "========================================"
+    echo "  CHAINCODE PACKAGED & INSTALLED"
+    echo "========================================"
+    echo "✅ Chaincode ${CC_NAME} v${CC_VERSION} berhasil di-package dan install!"
+    echo "📝 Untuk approve dan commit, gunakan: ./network.sh approve-commit"
+  fi
 }
 
+# Fungsi untuk approve dan commit saja (untuk manual control)
+approveAndCommitChaincode() {
+  echo "========================================"
+  echo "    CHAINCODE APPROVE & COMMIT"
+  echo "========================================"
+  echo "Approving and committing chaincode: ${CC_NAME} v${CC_VERSION}"
+  echo ""
+  
+  # Auto approve
+  autoApproveChaincode
+  echo ""
+  
+  # Check commit readiness
+  checkCommitReadiness
+  echo ""
+  
+  # Auto commit
+  autoCommitChaincode
+  echo ""
+  
+  # Verify
+  queryCommittedChaincode
+  echo ""
+  
+  echo "========================================"
+  echo "  APPROVE & COMMIT COMPLETED!"
+  echo "========================================"
+  echo "✅ Chaincode ${CC_NAME} v${CC_VERSION} berhasil di-approve dan commit!"
+  echo "✅ Chaincode siap digunakan di channel ${CHANNEL_NAME}"
+}
 
 # Main entry point
-
 
 case "$1" in
   restart)
@@ -503,33 +682,61 @@ case "$1" in
     echo "Menunggu 15 detik agar network siap..."
     sleep 15
     createChannel
-    if $AUTO_DEPLOY; then 
+    
+    # Auto deploy chaincode jika diminta
+    if $AUTO_DEPLOY || $AUTO_APPROVE_COMMIT; then 
       echo "Auto-deploying chaincode..."
-      deployCC
+      deployChaincode
     fi
-    echo "Network Setup Complete"
-    echo "Channel: $CHANNEL_NAME created and all peers joined"
+    
+    echo "========================================"
+    echo "      NETWORK SETUP COMPLETED!"
+    echo "========================================"
+    echo "✅ Network berhasil di-setup"
+    echo "✅ Channel: $CHANNEL_NAME created and all peers joined"
     if $CREATE_MAIN_CHANNEL; then
-      echo "Main Channel: $MAIN_CHANNEL also created"
+      echo "✅ Main Channel: $MAIN_CHANNEL also created"
     fi
     if [ "$NETWORK_ONLY" = true ]; then
-      echo "Network ready for chaincode deployment"
+      echo "📝 Network ready for chaincode deployment"
+      echo "📝 Gunakan: ./network.sh deploy-chaincode --auto-approve"
     fi
     ;;
+    
   down)
     clearContainers
     echo "Network Stopped"
     ;;
+    
+  deploy-chaincode)
+    echo "Deploying Chaincode..."
+    NETWORK_ONLY=false
+    if [[ "$2" == "--auto-approve" ]]; then
+      AUTO_APPROVE_COMMIT=true
+    fi
+    deployChaincode
+    ;;
+    
+  approve-commit)
+    echo "Approving and Committing Chaincode..."
+    NETWORK_ONLY=false
+    approveAndCommitChaincode
+    ;;
+    
   upgrade)
     echo "Upgrading/Deploying Chaincode..."
-    if [[ "$2" == "--with-chaincode" ]]; then
+    if [[ "$2" == "--with-chaincode" ]] || [[ "$2" == "--auto-approve" ]]; then
       NETWORK_ONLY=false
-      deployCC
+      if [[ "$2" == "--auto-approve" ]] || [[ "$3" == "--auto-approve" ]]; then
+        AUTO_APPROVE_COMMIT=true
+      fi
+      deployChaincode
     else
-      deployCC
+      NETWORK_ONLY=false
+      deployChaincode
     fi
-    echo "Chaincode Deployment Complete"
     ;;
+    
   channel)
     if [ "$2" = "create" ]; then
       if [ "$3" = "main" ]; then
@@ -542,33 +749,65 @@ case "$1" in
       echo "Usage: ./network.sh channel create [main]"
     fi
     ;;
-  chaincode)
-    echo "Chaincode lifecycle script: ./scripts/chaincode-lifecycle.sh"
-    echo ""
-    echo "Commands:"
-    echo "  ./scripts/chaincode-lifecycle.sh deploy          # Complete lifecycle"
-    echo "  ./scripts/chaincode-lifecycle.sh approve         # Approve chaincode"
-    echo "  ./scripts/chaincode-lifecycle.sh commit          # Commit chaincode"
-    echo "  ./scripts/chaincode-lifecycle.sh query-committed # Check status"
-    ;;
+    
   test)
-    echo "Use 'docker ps' to check running containers"
+    echo "=== NETWORK STATUS CHECK ==="
+    echo "Checking running containers..."
+    docker ps -a --filter "name=${COMPOSE_PROJECT_NAME}"
+    echo ""
+    echo "Checking network status..."
+    docker network ls | grep -E "(rec|blockchain)" || echo "No REC networks found"
+    echo ""
+    echo "Checking chaincode status..."
+    queryCommittedChaincode 2>/dev/null || echo "No chaincode committed yet"
     ;;
+    
+  clean)
+    echo "=== DEEP CLEAN MODE ==="
+    clearContainers
+    echo "Removing all related artifacts..."
+    rm -rf organizations system-genesis-block channel-artifacts
+    echo "Deep clean completed"
+    ;;
+    
   *)
-    echo "Usage: ./network.sh [restart|down|upgrade|channel|test|chaincode] [options]"
+    echo "========================================"
+    echo "      REC BLOCKCHAIN NETWORK SCRIPT"
+    echo "========================================"
+    echo "Usage: ./network.sh [command] [options]"
     echo ""
-    echo "Commands:"
-    echo "  restart [--main]               : Setup network"
-    echo "  down                          : Stop network"
-    echo "  channel create [main]         : Create channels"
-    echo "  test                          : Check status"
-    echo "  chaincode                     : Chaincode commands"
-    echo "  upgrade --with-chaincode      : Deploy chaincode"
+    echo "NETWORK COMMANDS:"
+    echo "  restart [--main] [--auto-approve]     : Setup network (optional: create main channel & auto deploy chaincode)"
+    echo "  down                                  : Stop network"
+    echo "  channel create [main]                 : Create channels"
+    echo "  test                                  : Check network and chaincode status"
+    echo "  clean                                 : Deep clean (remove all artifacts)"
     echo ""
-    echo "Examples:"
+    echo "CHAINCODE COMMANDS:"
+    echo "  deploy-chaincode [--auto-approve]     : Deploy chaincode (package + install + optional auto approve/commit)"
+    echo "  approve-commit                        : Manual approve and commit chaincode"
+    echo "  upgrade [--auto-approve]              : Upgrade/Deploy chaincode"
+    echo ""
+    echo "EXAMPLES:"
+    echo "  # Setup network saja:"
     echo "  ./network.sh restart"
-    echo "  ./network.sh chaincode"
+    echo ""
+    echo "  # Setup network + auto deploy chaincode:"
+    echo "  ./network.sh restart --auto-approve"
+    echo ""
+    echo "  # Deploy chaincode dengan auto approve & commit:"
+    echo "  ./network.sh deploy-chaincode --auto-approve"
+    echo ""
+    echo "  # Deploy chaincode manual (package + install saja):"
+    echo "  ./network.sh deploy-chaincode"
+    echo "  ./network.sh approve-commit"
+    echo ""
+    echo "  # Deep clean semua:"
+    echo "  ./network.sh clean"
+    echo ""
+    echo "  # Stop network:"
     echo "  ./network.sh down"
+    echo ""
     exit 1
     ;;
 esac

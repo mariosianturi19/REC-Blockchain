@@ -1,0 +1,27 @@
+{
+  "name": "rec-network",
+  "version": "1.0.0",
+  "client": {
+    "organization": "GeneratorMSP"
+  },
+  "organizations": {
+    "GeneratorMSP": {
+      "mspid": "GeneratorMSP",
+      "peers": ["peer0.generator.rec.com"],
+      "certificateAuthorities": []
+    }
+  },
+  "peers": {
+    "peer0.generator.rec.com": {
+      "url": "grpcs://localhost:7051",
+      "tlsCACerts": {
+        "path": "../organizations/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.generator.rec.com",
+        "hostnameOverride": "peer0.generator.rec.com"
+      }
+    }
+  },
+  "certificateAuthorities": {}
+}

@@ -9,6 +9,160 @@ CC_VERSION="1.0"
 CC_SEQUENCE="1"
 CC_SRC_PATH_IN_CONTAINER="/opt/gopath/src/github.com/chaincode/rec/javascript/"
 
+# Function to get next version and sequence
+getNextVersion() {
+    local current_version="$1"
+    if [[ $current_version =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+        local major="${BASH_REMATCH[1]}"
+        local minor="${BASH_REMATCH[2]}"
+        minor=$((minor + 1))
+        echo "${major}.${minor}"
+    else
+        echo "1.1"  # Default if parsing fails
+    fi
+}
+
+# Function to upgrade chaincode
+upgradeChaincode() {
+    local new_version="$1"
+    local new_sequence="$2"
+    
+    if [ -z "$new_version" ] || [ -z "$new_sequence" ]; then
+        echo "Usage: upgradeChaincode <new_version> <new_sequence>"
+        echo "Example: upgradeChaincode 1.1 2"
+        return 1
+    fi
+    
+    echo "==== CHAINCODE UPGRADE ===="
+    echo "Upgrading chaincode: ${CC_NAME} from v${CC_VERSION} to v${new_version}"
+    echo "Sequence: ${CC_SEQUENCE} → ${new_sequence}"
+    echo ""
+    
+    # Update global variables for upgrade
+    local old_version=$CC_VERSION
+    local old_sequence=$CC_SEQUENCE
+    CC_VERSION=$new_version
+    CC_SEQUENCE=$new_sequence
+    
+    echo "Step 1: Package new version..."
+    packageChaincode
+    echo ""
+    
+    echo "Step 2: Install new version ke semua peers..."
+    installChaincode
+    echo ""
+    
+    echo "Step 3: Approve new version untuk semua organisasi..."
+    approveChaincode
+    echo ""
+    
+    echo "Step 4: Check commit readiness..."
+    checkCommitReadiness
+    echo ""
+    
+    echo "Step 5: Commit new version ke channel..."
+    commitChaincode
+    echo ""
+    
+    echo "Step 6: Verify upgrade..."
+    queryCommitted
+    echo ""
+    
+    echo "==== CHAINCODE UPGRADE COMPLETE ===="
+    echo "✅ Chaincode ${CC_NAME} upgraded from v${old_version} to v${new_version}!"
+    echo "✅ Sequence updated from ${old_sequence} to ${new_sequence}"
+}
+
+# Function to invoke chaincode
+invokeChaincode() {
+    local function_name="$1"
+    local args="$2"
+    
+    if [ -z "$function_name" ]; then
+        echo "Usage: invokeChaincode <function_name> [args]"
+        echo "Example: invokeChaincode initLedger"
+        echo "Example: invokeChaincode createREC '{\"id\":\"REC001\",\"amount\":100}'"
+        return 1
+    fi
+    
+    echo "Invoking chaincode function: $function_name"
+    
+    if [ -n "$args" ]; then
+        docker exec \
+            -e CORE_PEER_LOCALMSPID=GeneratorMSP \
+            -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/users/Admin@generator.rec.com/msp \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+            cli peer chaincode invoke \
+                -o orderer.rec.com:7050 \
+                --ordererTLSHostnameOverride orderer.rec.com \
+                --tls \
+                --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem \
+                -C $CHANNEL_NAME \
+                -n $CC_NAME \
+                --peerAddresses peer0.generator.rec.com:7051 \
+                --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+                --peerAddresses peer0.issuer.rec.com:9051 \
+                --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt \
+                -c "{\"function\":\"$function_name\",\"Args\":[$args]}"
+    else
+        docker exec \
+            -e CORE_PEER_LOCALMSPID=GeneratorMSP \
+            -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/users/Admin@generator.rec.com/msp \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+            cli peer chaincode invoke \
+                -o orderer.rec.com:7050 \
+                --ordererTLSHostnameOverride orderer.rec.com \
+                --tls \
+                --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem \
+                -C $CHANNEL_NAME \
+                -n $CC_NAME \
+                --peerAddresses peer0.generator.rec.com:7051 \
+                --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+                --peerAddresses peer0.issuer.rec.com:9051 \
+                --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt \
+                -c "{\"function\":\"$function_name\",\"Args\":[]}"
+    fi
+}
+
+# Function to query chaincode
+queryChaincode() {
+    local function_name="$1"
+    local args="$2"
+    
+    if [ -z "$function_name" ]; then
+        echo "Usage: queryChaincode <function_name> [args]"
+        echo "Example: queryChaincode getAllRECs"
+        echo "Example: queryChaincode getREC '\"REC001\"'"
+        return 1
+    fi
+    
+    echo "Querying chaincode function: $function_name"
+    
+    if [ -n "$args" ]; then
+        docker exec \
+            -e CORE_PEER_LOCALMSPID=GeneratorMSP \
+            -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/users/Admin@generator.rec.com/msp \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+            cli peer chaincode query \
+                -C $CHANNEL_NAME \
+                -n $CC_NAME \
+                -c "{\"function\":\"$function_name\",\"Args\":[$args]}"
+    else
+        docker exec \
+            -e CORE_PEER_LOCALMSPID=GeneratorMSP \
+            -e CORE_PEER_ADDRESS=peer0.generator.rec.com:7051 \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/users/Admin@generator.rec.com/msp \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/generator.rec.com/peers/peer0.generator.rec.com/tls/ca.crt \
+            cli peer chaincode query \
+                -C $CHANNEL_NAME \
+                -n $CC_NAME \
+                -c "{\"function\":\"$function_name\",\"Args\":[]}"
+    fi
+}
+
 # Fungsi untuk query installed chaincode
 queryInstalled() {
     echo "Query installed chaincode di semua peers..."
@@ -251,6 +405,15 @@ case "$1" in
     commit)
         commitChaincode
         ;;
+    upgrade)
+        upgradeChaincode "$2" "$3"
+        ;;
+    invoke)
+        invokeChaincode "$2" "$3"
+        ;;
+    query)
+        queryChaincode "$2" "$3"
+        ;;
     query-installed)
         queryInstalled
         ;;
@@ -265,30 +428,39 @@ case "$1" in
         ;;
     *)
         echo "==== REC Chaincode Lifecycle Management ===="
-        echo "Usage: ./chaincode-lifecycle.sh [command]"
+        echo "Usage: ./chaincode-lifecycle.sh [command] [options]"
         echo ""
-        echo "BLOCKCHAIN ENGINEER COMMANDS:"
-        echo "  deploy                    : Complete chaincode lifecycle (package → install → approve → commit)"
-        echo "  package                   : Package chaincode"
-        echo "  install                   : Install chaincode ke semua peers"
-        echo "  approve                   : Approve chaincode untuk semua organisasi"
-        echo "  commit                    : Commit chaincode ke channel"
+        echo "🚀 BLOCKCHAIN ENGINEER COMMANDS:"
+        echo "  deploy                         : Complete chaincode lifecycle (package → install → approve → commit)"
+        echo "  upgrade <version> <sequence>   : Upgrade chaincode to new version"
+        echo "  package                        : Package chaincode"
+        echo "  install                        : Install chaincode ke semua peers"
+        echo "  approve                        : Approve chaincode untuk semua organisasi"
+        echo "  commit                         : Commit chaincode ke channel"
         echo ""
-        echo "MONITORING COMMANDS:"
-        echo "  query-installed           : Query installed chaincode di semua peers"
-        echo "  query-committed           : Query committed chaincode di channel"
-        echo "  check-readiness           : Check commit readiness"
+        echo "🔧 CHAINCODE OPERATIONS:"
+        echo "  invoke <function> [args]       : Invoke chaincode function (modify ledger)"
+        echo "  query <function> [args]        : Query chaincode function (read-only)"
         echo ""
-        echo "WORKFLOW UNTUK BLOCKCHAIN ENGINEER:"
-        echo "1. Pastikan network sudah running: ./network.sh restart"
-        echo "2. Pastikan blockchain developer sudah provide chaincode di ./chaincode/rec/javascript/"
-        echo "3. Deploy chaincode: ./scripts/chaincode-lifecycle.sh deploy"
+        echo "📊 MONITORING COMMANDS:"
+        echo "  query-installed                : Query installed chaincode di semua peers"
+        echo "  query-committed                : Query committed chaincode di channel"
+        echo "  check-readiness                : Check commit readiness"
         echo ""
-        echo "Examples:"
-        echo "  ./scripts/chaincode-lifecycle.sh deploy        # Complete deployment"
-        echo "  ./scripts/chaincode-lifecycle.sh approve       # Approve only"
-        echo "  ./scripts/chaincode-lifecycle.sh commit        # Commit only"
-        echo "  ./scripts/chaincode-lifecycle.sh query-committed  # Check status"
+        echo "🎯 WORKFLOW UNTUK BLOCKCHAIN ENGINEER:"
+        echo "1. Deploy: ./scripts/chaincode-lifecycle.sh deploy"
+        echo "2. Test: ./scripts/chaincode-lifecycle.sh invoke initLedger"
+        echo "3. Query: ./scripts/chaincode-lifecycle.sh query getAllRECs"
+        echo "4. Upgrade: ./scripts/chaincode-lifecycle.sh upgrade 1.1 2"
+        echo ""
+        echo "📝 Examples:"
+        echo "  ./scripts/chaincode-lifecycle.sh deploy                    # Initial deployment"
+        echo "  ./scripts/chaincode-lifecycle.sh upgrade 1.1 2             # Upgrade to version 1.1"
+        echo "  ./scripts/chaincode-lifecycle.sh invoke initLedger         # Initialize ledger"
+        echo "  ./scripts/chaincode-lifecycle.sh query getAllRECs          # Get all RECs"
+        echo "  ./scripts/chaincode-lifecycle.sh invoke createREC '\"REC001\",\"100\"'  # Create REC"
+        echo "  ./scripts/chaincode-lifecycle.sh query getREC '\"REC001\"'      # Get specific REC"
+        echo "  ./scripts/chaincode-lifecycle.sh query-committed           # Check status"
         exit 1
         ;;
 esac
