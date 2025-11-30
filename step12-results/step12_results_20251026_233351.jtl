@@ -1,0 +1,201 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1761496436593,218,Energy Query,200,OK,Energy Query 3-1,text,true,,2320,127,1,3,http://localhost:3000/api/energy,212,0,24
+1761496437201,2553,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1349,468,2,6,http://localhost:3000/api/energy/submit,2553,0,9
+1761496440287,212,Energy Query,200,OK,Energy Query 3-1,text,true,,2577,127,2,6,http://localhost:3000/api/energy,212,0,0
+1761496441719,180,Energy Query,200,OK,Energy Query 3-2,text,true,,2577,127,2,6,http://localhost:3000/api/energy,180,0,0
+1761496442390,183,Energy Query,200,OK,Energy Query 3-1,text,true,,2577,127,2,6,http://localhost:3000/api/energy,183,0,0
+1761496443630,198,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,2,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-192,198,0,1
+1761496443993,181,Energy Query,200,OK,Energy Query 3-3,text,true,,2577,127,3,7,http://localhost:3000/api/energy,181,0,1
+1761496444057,171,Energy Query,200,OK,Energy Query 3-1,text,true,,2577,127,3,7,http://localhost:3000/api/energy,171,0,0
+1761496444312,180,Energy Query,200,OK,Energy Query 3-2,text,true,,2577,127,3,7,http://localhost:3000/api/energy,180,0,0
+1761496446554,173,Energy Query,200,OK,Energy Query 3-1,text,true,,2577,127,3,9,http://localhost:3000/api/energy,173,0,0
+1761496446610,169,Energy Query,200,OK,Energy Query 3-3,text,true,,2577,127,3,9,http://localhost:3000/api/energy,169,0,0
+1761496447705,168,Energy Query,200,OK,Energy Query 3-2,text,true,,2577,127,3,9,http://localhost:3000/api/energy,168,0,0
+1761496447872,173,Energy Query,200,OK,Energy Query 3-3,text,true,,2577,127,4,10,http://localhost:3000/api/energy,173,0,0
+1761496446174,2549,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1349,468,3,10,http://localhost:3000/api/energy/submit,2549,0,2
+1761496446322,2501,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,3,10,http://localhost:3000/api/energy/submit,2501,0,2
+1761496448652,172,Energy Query,200,OK,Energy Query 3-1,text,true,,3092,127,4,10,http://localhost:3000/api/energy,172,0,0
+1761496449361,178,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,289,3,10,http://localhost:3000/api/energy/verify/ENERGI-20251026-576,178,0,1
+1761496449403,201,Energy Query,200,OK,Energy Query 3-4,text,true,,3092,127,4,10,http://localhost:3000/api/energy,201,0,1
+1761496450015,175,Energy Query,200,OK,Energy Query 3-1,text,true,,3092,127,4,10,http://localhost:3000/api/energy,175,0,0
+1761496450306,171,Energy Query,200,OK,Energy Query 3-2,text,true,,3092,127,4,10,http://localhost:3000/api/energy,171,0,0
+1761496450813,181,Energy Query,200,OK,Energy Query 3-3,text,true,,3092,127,4,11,http://localhost:3000/api/energy,181,0,0
+1761496449330,2544,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1348,467,4,11,http://localhost:3000/api/energy/submit,2544,0,2
+1761496452153,175,Energy Query,200,OK,Energy Query 3-2,text,true,,3349,127,4,11,http://localhost:3000/api/energy,174,0,0
+1761496452792,181,Energy Query,200,OK,Energy Query 3-4,text,true,,3349,127,5,12,http://localhost:3000/api/energy,181,0,0
+1761496452816,161,Energy Query,200,OK,Energy Query 3-3,text,true,,3349,127,5,12,http://localhost:3000/api/energy,161,0,0
+1761496453916,189,Energy Query,200,OK,Energy Query 3-2,text,true,,3349,127,5,12,http://localhost:3000/api/energy,188,0,0
+1761496454020,188,Energy Query,200,OK,Energy Query 3-1,text,true,,3349,127,5,12,http://localhost:3000/api/energy,187,0,0
+1761496454421,195,Energy Query,200,OK,Energy Query 3-5,text,true,,3607,127,5,12,http://localhost:3000/api/energy,195,0,1
+1761496452192,2540,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,4,12,http://localhost:3000/api/energy/submit,2540,0,0
+1761496455111,214,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,12,http://localhost:3000/api/energy/verify/ENERGI-20251026-804,214,0,2
+1761496455156,182,Energy Query,200,OK,Energy Query 3-3,text,true,,3607,127,5,12,http://localhost:3000/api/energy,182,0,0
+1761496455267,187,Energy Query,200,OK,Energy Query 3-1,text,true,,3607,127,5,12,http://localhost:3000/api/energy,187,0,0
+1761496455690,197,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,12,http://localhost:3000/api/energy/verify/ENERGI-20251026-764,197,0,1
+1761496455836,171,Energy Query,200,OK,Energy Query 3-4,text,true,,3607,127,5,12,http://localhost:3000/api/energy,171,0,0
+1761496457025,173,Energy Query,200,OK,Energy Query 3-1,text,true,,3607,127,5,13,http://localhost:3000/api/energy,173,0,0
+1761496457170,176,Energy Query,200,OK,Energy Query 3-5,text,true,,3607,127,5,13,http://localhost:3000/api/energy,176,0,0
+1761496457467,175,Energy Query,200,OK,Energy Query 3-3,text,true,,3607,127,5,13,http://localhost:3000/api/energy,175,0,0
+1761496457758,180,Energy Query,200,OK,Energy Query 3-4,text,true,,3607,127,6,14,http://localhost:3000/api/energy,180,0,0
+1761496458090,179,Energy Query,200,OK,Energy Query 3-2,text,true,,3607,127,6,14,http://localhost:3000/api/energy,179,0,0
+1761496458500,184,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,290,3,14,http://localhost:3000/api/energy/verify/ENERGI-20251026-971,184,0,2
+1761496456282,2516,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1349,468,5,14,http://localhost:3000/api/energy/submit,2516,0,2
+1761496457123,2535,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2535,0,1
+1761496459761,185,Energy Query,200,OK,Energy Query 3-5,text,true,,4380,127,6,14,http://localhost:3000/api/energy,185,0,0
+1761496458096,2551,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2551,0,1
+1761496460793,178,Energy Query,200,OK,Energy Query 3-3,text,true,,4380,127,6,14,http://localhost:3000/api/energy,178,0,0
+1761496460850,177,Energy Query,200,OK,Energy Query 3-1,text,true,,4380,127,6,14,http://localhost:3000/api/energy,177,0,0
+1761496461190,172,Energy Query,200,OK,Energy Query 3-6,text,true,,4380,127,6,14,http://localhost:3000/api/energy,172,0,1
+1761496461394,161,Energy Query,200,OK,Energy Query 3-4,text,true,,4380,127,6,14,http://localhost:3000/api/energy,161,0,0
+1761496461761,180,Energy Query,200,OK,Energy Query 3-2,text,true,,4380,127,6,14,http://localhost:3000/api/energy,180,0,0
+1761496462384,179,Energy Query,200,OK,Energy Query 3-3,text,true,,4380,127,6,14,http://localhost:3000/api/energy,179,0,0
+1761496460321,2566,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2566,0,1
+1761496463020,174,Energy Query,200,OK,Energy Query 3-6,text,true,,4896,127,7,15,http://localhost:3000/api/energy,174,0,0
+1761496461062,2555,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,5,15,http://localhost:3000/api/energy/submit,2555,0,1
+1761496463430,206,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,15,http://localhost:3000/api/energy/verify/ENERGI-20251026-971,205,0,1
+1761496463616,166,Energy Query,200,OK,Energy Query 3-5,text,true,,4896,127,7,15,http://localhost:3000/api/energy,165,0,0
+1761496463666,188,Energy Query,200,OK,Energy Query 3-1,text,true,,4896,127,7,15,http://localhost:3000/api/energy,188,0,0
+1761496463700,178,Energy Query,200,OK,Energy Query 3-3,text,true,,4896,127,7,15,http://localhost:3000/api/energy,178,0,0
+1761496464294,170,Energy Query,200,OK,Energy Query 3-2,text,true,,4896,127,7,15,http://localhost:3000/api/energy,170,0,0
+1761496464339,191,Energy Query,200,OK,Energy Query 3-4,text,true,,4896,127,7,15,http://localhost:3000/api/energy,191,0,0
+1761496465874,203,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,15,http://localhost:3000/api/energy/verify/ENERGI-20251026-794,203,0,1
+1761496463583,2552,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1350,469,5,15,http://localhost:3000/api/energy/submit,2552,0,0
+1761496465958,178,Energy Query,200,OK,Energy Query 3-7,text,true,,5670,127,7,15,http://localhost:3000/api/energy,178,0,2
+1761496466165,184,Energy Query,200,OK,Energy Query 3-3,text,true,,5670,127,7,15,http://localhost:3000/api/energy,184,0,0
+1761496463888,2522,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1349,468,5,15,http://localhost:3000/api/energy/submit,2522,0,0
+1761496466574,186,Energy Query,200,OK,Energy Query 3-4,text,true,,5670,127,7,15,http://localhost:3000/api/energy,186,0,0
+1761496466683,190,Energy Query,200,OK,Energy Query 3-6,text,true,,5670,127,7,15,http://localhost:3000/api/energy,189,0,0
+1761496467113,179,Energy Query,200,OK,Energy Query 3-5,text,true,,5670,127,7,15,http://localhost:3000/api/energy,179,0,0
+1761496467277,197,Energy Query,200,OK,Energy Query 3-7,text,true,,5670,127,7,15,http://localhost:3000/api/energy,197,0,0
+1761496467398,190,Energy Query,200,OK,Energy Query 3-1,text,true,,5670,127,7,15,http://localhost:3000/api/energy,190,0,0
+1761496467463,190,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,289,3,15,http://localhost:3000/api/energy/verify/ENERGI-20251026-217,190,0,1
+1761496465243,2536,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,5,15,http://localhost:3000/api/energy/submit,2536,0,0
+1761496468014,169,Energy Query,200,OK,Energy Query 3-4,text,true,,5670,127,8,16,http://localhost:3000/api/energy,169,0,0
+1761496468059,182,Energy Query,200,OK,Energy Query 3-3,text,true,,5670,127,8,16,http://localhost:3000/api/energy,182,0,0
+1761496468359,187,Energy Query,200,OK,Energy Query 3-2,text,true,,5670,127,8,16,http://localhost:3000/api/energy,186,0,0
+1761496468364,183,Energy Query,200,OK,Energy Query 3-6,text,true,,5670,127,8,16,http://localhost:3000/api/energy,183,0,0
+1761496468451,177,Energy Query,200,OK,Energy Query 3-5,text,true,,5670,127,8,16,http://localhost:3000/api/energy,177,0,0
+1761496468932,181,Energy Query,200,OK,Energy Query 3-8,text,true,,5670,127,8,16,http://localhost:3000/api/energy,180,0,1
+1761496469706,181,Energy Query,200,OK,Energy Query 3-1,text,true,,5670,127,8,16,http://localhost:3000/api/energy,181,0,0
+1761496469760,165,Energy Query,200,OK,Energy Query 3-3,text,true,,5670,127,8,16,http://localhost:3000/api/energy,165,0,0
+1761496469950,180,Energy Query,200,OK,Energy Query 3-5,text,true,,5670,127,8,16,http://localhost:3000/api/energy,180,0,0
+1761496470523,192,Energy Query,200,OK,Energy Query 3-8,text,true,,5670,127,8,16,http://localhost:3000/api/energy,192,0,0
+1761496470745,173,Energy Query,200,OK,Energy Query 3-7,text,true,,5670,127,8,16,http://localhost:3000/api/energy,173,0,0
+1761496470767,160,Energy Query,200,OK,Energy Query 3-6,text,true,,5670,127,8,16,http://localhost:3000/api/energy,160,0,0
+1761496471336,189,Energy Query,200,OK,Energy Query 3-4,text,true,,5670,127,8,16,http://localhost:3000/api/energy,189,0,0
+1761496471454,194,Energy Query,200,OK,Energy Query 3-5,text,true,,5670,127,8,16,http://localhost:3000/api/energy,194,0,0
+1761496469441,2542,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1350,469,5,16,http://localhost:3000/api/energy/submit,2542,0,0
+1761496469515,2531,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,16,http://localhost:3000/api/energy/submit,2531,0,2
+1761496472003,177,Energy Query,200,OK,Energy Query 3-1,text,true,,6444,127,8,16,http://localhost:3000/api/energy,177,0,0
+1761496472143,204,Energy Query,200,OK,Energy Query 3-2,text,true,,6444,127,7,15,http://localhost:3000/api/energy,204,0,0
+1761496472171,201,Energy Query,200,OK,Energy Query 3-6,text,true,,6444,127,7,15,http://localhost:3000/api/energy,201,0,0
+1761496469843,2562,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,5,15,http://localhost:3000/api/energy/submit,2562,0,1
+1761496472915,189,Energy Query,200,OK,Energy Query 3-3,text,true,,6444,127,7,15,http://localhost:3000/api/energy,189,0,0
+1761496473169,185,Energy Query,200,OK,Energy Query 3-5,text,true,,6444,127,7,15,http://localhost:3000/api/energy,185,0,0
+1761496473603,165,Energy Query,200,OK,Energy Query 3-4,text,true,,6444,127,7,15,http://localhost:3000/api/energy,165,0,0
+1761496473897,197,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,15,http://localhost:3000/api/energy/verify/ENERGI-20251026-567,197,0,1
+1761496474178,176,Energy Query,200,OK,Energy Query 3-6,text,true,,6444,127,7,15,http://localhost:3000/api/energy,176,0,0
+1761496474276,174,Energy Query,200,OK,Energy Query 3-7,text,true,,6444,127,7,15,http://localhost:3000/api/energy,174,0,0
+1761496474563,186,Energy Query,200,OK,Energy Query 3-8,text,true,,6444,127,7,15,http://localhost:3000/api/energy,186,0,0
+1761496474864,202,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,15,http://localhost:3000/api/energy/verify/ENERGI-20251026-928,202,0,1
+1761496475077,181,Energy Query,200,OK,Energy Query 3-5,text,true,,6444,127,7,15,http://localhost:3000/api/energy,181,0,0
+1761496475521,196,Energy Query,200,OK,Energy Query 3-3,text,true,,6959,127,7,15,http://localhost:3000/api/energy,195,0,0
+1761496473248,2553,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1349,468,5,14,http://localhost:3000/api/energy/submit,2553,0,2
+1761496475736,184,Energy Query,200,OK,Energy Query 3-2,text,true,,6959,127,6,14,http://localhost:3000/api/energy,184,0,0
+1761496473459,2529,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2529,0,2
+1761496475955,195,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,290,3,14,http://localhost:3000/api/energy/verify/ENERGI-20251026-427,195,0,1
+1761496476139,175,Energy Query,200,OK,Energy Query 3-6,text,true,,6959,127,6,14,http://localhost:3000/api/energy,175,0,0
+1761496476247,175,Energy Query,200,OK,Energy Query 3-4,text,true,,6959,127,6,14,http://localhost:3000/api/energy,175,0,0
+1761496476577,178,Energy Query,200,OK,Energy Query 3-7,text,true,,6959,127,6,14,http://localhost:3000/api/energy,177,0,0
+1761496477229,178,Energy Query,200,OK,Energy Query 3-8,text,true,,6959,127,6,14,http://localhost:3000/api/energy,178,0,0
+1761496477287,184,Energy Query,200,OK,Energy Query 3-2,text,true,,6959,127,6,14,http://localhost:3000/api/energy,184,0,0
+1761496478149,188,Energy Query,200,OK,Energy Query 3-6,text,true,,6959,127,6,14,http://localhost:3000/api/energy,187,0,0
+1761496478751,198,Energy Query,200,OK,Energy Query 3-4,text,true,,7475,127,6,14,http://localhost:3000/api/energy,197,0,0
+1761496478896,179,Energy Query,200,OK,Energy Query 3-5,text,true,,7475,127,6,14,http://localhost:3000/api/energy,179,0,0
+1761496476612,2529,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2529,0,0
+1761496478972,173,Energy Query,200,OK,Energy Query 3-2,text,true,,7475,127,6,14,http://localhost:3000/api/energy,173,0,0
+1761496476677,2538,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,14,http://localhost:3000/api/energy/submit,2538,0,0
+1761496479756,184,Energy Query,200,OK,Energy Query 3-8,text,true,,7475,127,6,14,http://localhost:3000/api/energy,184,0,0
+1761496480022,190,Energy Query,200,OK,Energy Query 3-7,text,true,,7475,127,6,14,http://localhost:3000/api/energy,190,0,0
+1761496481318,203,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,14,http://localhost:3000/api/energy/verify/ENERGI-20251026-202,203,0,1
+1761496481367,183,Energy Query,200,OK,Energy Query 3-5,text,true,,7475,127,6,14,http://localhost:3000/api/energy,183,0,0
+1761496481496,182,Energy Query,200,OK,Energy Query 3-8,text,true,,7475,127,6,14,http://localhost:3000/api/energy,182,0,0
+1761496481612,177,Energy Query,200,OK,Energy Query 3-4,text,true,,7475,127,6,14,http://localhost:3000/api/energy,176,0,0
+1761496481660,179,Energy Query,200,OK,Energy Query 3-7,text,true,,7475,127,6,14,http://localhost:3000/api/energy,179,0,0
+1761496481849,196,Energy Query,200,OK,Energy Query 3-6,text,true,,7475,127,6,14,http://localhost:3000/api/energy,196,0,0
+1761496481893,213,Energy Query,200,OK,Energy Query 3-2,text,true,,7990,127,6,14,http://localhost:3000/api/energy,213,0,0
+1761496479855,2549,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,5,13,http://localhost:3000/api/energy/submit,2549,0,1
+1761496480987,2553,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1349,468,5,13,http://localhost:3000/api/energy/submit,2553,0,2
+1761496483393,173,Energy Query,200,OK,Energy Query 3-7,text,true,,7990,127,5,13,http://localhost:3000/api/energy,173,0,0
+1761496484225,179,Energy Query,200,OK,Energy Query 3-4,text,true,,7990,127,5,13,http://localhost:3000/api/energy,179,0,0
+1761496484611,206,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,13,http://localhost:3000/api/energy/verify/ENERGI-20251026-740,206,0,1
+1761496484752,168,Energy Query,200,OK,Energy Query 3-8,text,true,,8764,127,5,13,http://localhost:3000/api/energy,168,0,0
+1761496482449,2525,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1350,469,5,13,http://localhost:3000/api/energy/submit,2525,0,2
+1761496482523,2539,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1350,469,5,13,http://localhost:3000/api/energy/submit,2539,0,0
+1761496484937,169,Energy Query,200,OK,Energy Query 3-5,text,true,,8764,127,5,13,http://localhost:3000/api/energy,169,0,0
+1761496485399,184,Energy Query,200,OK,Energy Query 3-7,text,true,,8764,127,5,13,http://localhost:3000/api/energy,184,0,0
+1761496483455,2540,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,13,http://localhost:3000/api/energy/submit,2540,0,0
+1761496485817,179,Energy Query,200,OK,Energy Query 3-6,text,true,,8764,127,5,13,http://localhost:3000/api/energy,179,0,0
+1761496486195,161,Energy Query,200,OK,Energy Query 3-8,text,true,,8764,127,5,13,http://localhost:3000/api/energy,160,0,0
+1761496486178,179,Energy Query,200,OK,Energy Query 3-4,text,true,,8764,127,5,13,http://localhost:3000/api/energy,178,0,0
+1761496486211,187,Energy Submit,500,Internal Server Error,Energy Submit 1-5,text,false,,2354,468,5,12,http://localhost:3000/api/energy/submit,187,0,0
+1761496486537,194,Energy Query,200,OK,Energy Query 3-5,text,true,,8764,127,4,12,http://localhost:3000/api/energy,194,0,0
+1761496486567,191,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,289,3,12,http://localhost:3000/api/energy/verify/ENERGI-20251026-339,191,0,1
+1761496488613,189,Energy Query,200,OK,Energy Query 3-8,text,true,,8764,127,4,12,http://localhost:3000/api/energy,189,0,0
+1761496489383,184,Energy Query,200,OK,Energy Query 3-5,text,true,,8764,127,4,12,http://localhost:3000/api/energy,184,0,0
+1761496489481,183,Energy Query,200,OK,Energy Query 3-7,text,true,,8764,127,3,11,http://localhost:3000/api/energy,183,0,0
+1761496489852,202,Energy Query,200,OK,Energy Query 3-6,text,true,,8764,127,3,11,http://localhost:3000/api/energy,201,0,0
+1761496490064,205,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,11,http://localhost:3000/api/energy/verify/ENERGI-20251026-955,205,0,1
+1761496488731,2544,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1350,469,5,11,http://localhost:3000/api/energy/submit,2544,0,0
+1761496492283,210,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,290,3,11,http://localhost:3000/api/energy/verify/ENERGI-20251026-524,210,0,1
+1761496492514,198,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,11,http://localhost:3000/api/energy/verify/ENERGI-20251026-916,198,0,1
+1761496492605,172,Energy Query,200,OK,Energy Query 3-8,text,true,,9022,127,3,11,http://localhost:3000/api/energy,172,0,0
+1761496490729,2562,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1349,468,5,11,http://localhost:3000/api/energy/submit,2562,0,0
+1761496493237,190,Energy Query,200,OK,Energy Query 3-7,text,true,,10052,127,3,11,http://localhost:3000/api/energy,190,0,0
+1761496491101,2551,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,5,11,http://localhost:3000/api/energy/submit,2551,0,1
+1761496493752,172,Energy Query,200,OK,Energy Query 3-6,text,true,,10052,127,3,11,http://localhost:3000/api/energy,172,0,0
+1761496494211,183,Energy Query,200,OK,Energy Query 3-8,text,true,,10052,127,3,11,http://localhost:3000/api/energy,183,0,0
+1761496492399,2525,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1349,468,5,11,http://localhost:3000/api/energy/submit,2525,0,2
+1761496492371,2554,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,11,http://localhost:3000/api/energy/submit,2554,0,1
+1761496496472,195,Energy Query,200,OK,Energy Query 3-6,text,true,,10052,127,3,11,http://localhost:3000/api/energy,195,0,0
+1761496496486,182,Energy Query,200,OK,Energy Query 3-8,text,true,,10052,127,3,11,http://localhost:3000/api/energy,182,0,0
+1761496496980,183,Energy Query,200,OK,Energy Query 3-7,text,true,,10052,127,3,11,http://localhost:3000/api/energy,183,0,0
+1761496498175,209,Energy Query,200,OK,Energy Query 3-6,text,true,,10052,127,3,11,http://localhost:3000/api/energy,209,0,0
+1761496498252,178,Energy Query,200,OK,Energy Query 3-8,text,true,,10052,127,2,10,http://localhost:3000/api/energy,177,0,0
+1761496499237,185,Energy Query,200,OK,Energy Query 3-7,text,true,,10052,127,2,10,http://localhost:3000/api/energy,185,0,0
+1761496497307,2561,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1350,469,5,10,http://localhost:3000/api/energy/submit,2561,0,1
+1761496498242,2528,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1349,468,5,10,http://localhost:3000/api/energy/submit,2527,0,0
+1761496500743,162,Energy Query,200,OK,Energy Query 3-8,text,true,,10567,127,2,10,http://localhost:3000/api/energy,162,0,0
+1761496501160,194,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,10,http://localhost:3000/api/energy/verify/ENERGI-20251026-442,194,0,2
+1761496501231,189,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,290,3,10,http://localhost:3000/api/energy/verify/ENERGI-20251026-218,189,0,1
+1761496500735,2529,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1349,468,5,10,http://localhost:3000/api/energy/submit,2529,0,2
+1761496503208,191,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,10,http://localhost:3000/api/energy/verify/ENERGI-20251026-436,191,0,1
+1761496503256,189,Energy Query,200,OK,Energy Query 3-7,text,true,,11340,127,2,10,http://localhost:3000/api/energy,189,0,0
+1761496501069,2564,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,5,10,http://localhost:3000/api/energy/submit,2564,0,1
+1761496501575,2546,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1349,468,5,10,http://localhost:3000/api/energy/submit,2546,0,1
+1761496504460,194,Energy Query,200,OK,Energy Query 3-8,text,true,,11340,127,2,10,http://localhost:3000/api/energy,194,0,0
+1761496505038,196,Energy Query,200,OK,Energy Query 3-7,text,true,,11340,127,1,9,http://localhost:3000/api/energy,196,0,0
+1761496507099,194,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,289,3,8,http://localhost:3000/api/energy/verify/ENERGI-20251026-988,194,0,1
+1761496507998,385,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1349,468,5,8,http://localhost:3000/api/energy/submit,385,0,0
+1761496506019,2547,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1349,468,5,8,http://localhost:3000/api/energy/submit,2547,0,1
+1761496506555,2528,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1350,469,5,8,http://localhost:3000/api/energy/submit,2528,0,1
+1761496507438,2525,Energy Submit,201,Created,Energy Submit 1-1,text,true,,1350,469,5,8,http://localhost:3000/api/energy/submit,2525,0,0
+1761496510791,196,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,289,3,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-846,196,0,1
+1761496512306,200,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-269,200,0,2
+1761496512043,2544,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,4,7,http://localhost:3000/api/energy/submit,2544,0,1
+1761496514310,2549,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1350,469,4,7,http://localhost:3000/api/energy/submit,2549,0,1
+1761496515731,2558,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,4,7,http://localhost:3000/api/energy/submit,2557,0,2
+1761496516146,2555,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1349,468,4,7,http://localhost:3000/api/energy/submit,2555,0,2
+1761496519097,179,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,290,3,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-469,178,0,1
+1761496520103,186,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,3,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-393,186,0,2
+1761496520301,182,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,290,3,7,http://localhost:3000/api/energy/verify/ENERGI-20251026-129,182,0,2
+1761496521014,2550,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,4,7,http://localhost:3000/api/energy/submit,2550,0,2
+1761496521771,2519,Energy Submit,201,Created,Energy Submit 1-4,text,true,,1349,468,4,7,http://localhost:3000/api/energy/submit,2519,0,0
+1761496525425,202,Energy Verify,500,Internal Server Error,Energy Verify 2-1,text,false,,2119,290,3,6,http://localhost:3000/api/energy/verify/ENERGI-20251026-407,202,0,1
+1761496523682,2514,Energy Submit,201,Created,Energy Submit 1-2,text,true,,1349,468,3,5,http://localhost:3000/api/energy/submit,2514,0,0
+1761496523641,2555,Energy Submit,201,Created,Energy Submit 1-5,text,true,,1350,469,3,5,http://localhost:3000/api/energy/submit,2555,0,2
+1761496527628,195,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,289,2,4,http://localhost:3000/api/energy/verify/ENERGI-20251026-627,195,0,1
+1761496531640,204,Energy Submit,500,Internal Server Error,Energy Submit 1-5,text,false,,2355,469,2,4,http://localhost:3000/api/energy/submit,203,0,1
+1761496529392,2562,Energy Submit,201,Created,Energy Submit 1-3,text,true,,1350,469,1,3,http://localhost:3000/api/energy/submit,2561,0,1
+1761496532463,207,Energy Verify,500,Internal Server Error,Energy Verify 2-2,text,false,,2119,289,2,2,http://localhost:3000/api/energy/verify/ENERGI-20251026-960,207,0,1
+1761496535030,201,Energy Verify,500,Internal Server Error,Energy Verify 2-3,text,false,,2119,290,1,1,http://localhost:3000/api/energy/verify/ENERGI-20251026-873,201,0,1

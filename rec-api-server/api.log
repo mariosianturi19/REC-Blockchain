@@ -1,0 +1,377 @@
+nohup: ignoring input
+[dotenv@17.2.3] injecting env (9) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+🚀 REC API Server running on port 3000
+📝 Health check: http://localhost:3000/health
+🌐 API Documentation: http://localhost:3000/
+🔗 Environment: development
+🔍 Step 3: Starting certificate request with comprehensive security validation
+📋 Received security data: { security: undefined, compliance: undefined, auditTrail: undefined }
+🔍 Pre-validation 1: Checking energy data integrity
+⚠️ Energy data integrity check failed, proceeding with caution
+🔍 Pre-validation 2: Checking certificate uniqueness (Anti-duplication)
+⚠️ Certificate uniqueness check failed, proceeding with caution
+🔍 Pre-validation 3: Checking energy data duplication
+🕐 Using consistent timestamp for ALL fields: 2025-11-08T12:22:20.141Z
+🔄 Executing CLI command with BuyerMSP identity for certificate request (Step 1)...
+🔑 Using MSP: BuyerMSP for Step 1
+📋 Endorsement: buyer + issuer (NO generator for certificate workflow)
+📝 Data: {
+  certificateId: 'CERT_TEST_2025_001',
+  energyDataId: 'ENERGY_001',
+  buyerId: 'BUYER_001',
+  hasSecurityData: false,
+  securityDataLength: 250,
+  argsCount: 4
+}
+🔍 CLI Args being sent: [
+  'CERT_TEST_2025_001',
+  'ENERGY_001',
+  'BUYER_001',
+  'SECURITY_DATA_PRESENT'
+]
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:22:22.394 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:22:22.395 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:22:22.395 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"CERT_TEST_2025_001\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer - waiting for payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGY_001\",\"amount\":1,\"unit\":\"MWh\",\"sourceType\":\"Solar\",\"generationDate\":\"2025-11-08T12:22:20.331Z\",\"location\":\"Mock Location\"},\"parties\":{\"generator\":{\"generatorId\":\"GENERATOR_001\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"BUYER_001\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-08T12:22:20.000Z\",\"requestedBy\":\"BUYER_001\",\"paidAt\":null,\"paidBy\":null,\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:22:20.000Z\",\"paymentConfirmed\":false,\"paymentConfirmedAt\":null,\"paymentConfirmedBy\":null,\"paymentStatus\":\"PENDING\",\"paymentMethod\":null,\"paymentReference\":null,\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"auditTrail\":{\"createdAt\":\"2025-11-08T12:22:20.000Z\",\"createdBy\":\"BUYER_001\",\"lastModified\":\"2025-11-08T12:22:20.000Z\",\"transactionId\":\"7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94\",\"workflowStep\":\"STEP_1_CERTIFICATE_REQUESTED\",\"requestTimestamp\":\"2025-11-08T12:22:20.141Z\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-CERT_TEST_2025_001-7b8c50f430ff\",\"antiDuplicationVerified\":false,\"energyDataValidated\":true},\"security\":{\"certificateHash\":null,\"serialNumber\":null,\"securityLevel\":\"MEDIUM\",\"cryptographicStandard\":\"SHA-256\"}}" 
+
+✅ Certificate request created successfully with ENHANCED SECURITY VALIDATION
+[0mPOST /api/certificates/request [32m201[0m 2770.827 ms - 596[0m
+💰 Step 2: Starting payment confirmation process {
+  certId: 'CERT_TEST_2025_001',
+  buyerId: 'BUYER_001',
+  paymentMethod: 'bank_transfer',
+  paymentReference: 'PAY_TEST_001'
+}
+🔄 Executing CLI command with BuyerMSP identity for payment confirmation...
+🔑 Using MSP: BuyerMSP for Step 2
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:22:39.186 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:22:39.190 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:22:39.190 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T12:22:20.000Z\",\"createdBy\":\"BUYER_001\",\"lastModified\":\"2025-11-08T12:22:37.000Z\",\"requestTimestamp\":\"2025-11-08T12:22:20.141Z\",\"transactionId\":\"7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94\",\"workflowStep\":\"STEP_2_CERTIFICATE_PAID\",\"paymentConfirmationTxId\":\"207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192\",\"transactionConsistency\":{\"txId\":\"207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192\",\"timestamp\":\"2025-11-08T12:22:37.000Z\",\"function\":\"confirmPayment\",\"endorser\":\"BuyerMSP\",\"stateHash\":\"0fe0445e4e7fee3670c07bac9aede93a6db67ff30a82d2b34041b3a86f4f0d16\"}},\"certificateId\":\"CERT_TEST_2025_001\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_PAID\",\"statusDescription\":\"Payment confirmed by buyer - waiting for issuer verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":false,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_TEST_2025_001-7b8c50f430ff\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1,\"energyDataId\":\"ENERGY_001\",\"generationDate\":\"2025-11-08T12:22:20.331Z\",\"location\":\"Mock Location\",\"sourceType\":\"Solar\",\"unit\":\"MWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null,\"issuedAt\":null,\"issuedBy\":null,\"paidAt\":\"2025-11-08T12:22:37.000Z\",\"paidBy\":\"BUYER_001\",\"requestedAt\":\"2025-11-08T12:22:20.000Z\",\"requestedBy\":\"BUYER_001\"},\"parties\":{\"buyer\":{\"buyerId\":\"BUYER_001\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GENERATOR_001\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T12:22:37.000Z\",\"paymentConfirmedBy\":\"BUYER_001\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_TEST_001\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:22:20.000Z\",\"paymentStatus\":\"CONFIRMED\",\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"security\":{\"certificateHash\":null,\"cryptographicStandard\":\"SHA-256\",\"securityLevel\":\"MEDIUM\",\"serialNumber\":null},\"version\":\"1.0\"}" 
+
+✅ Payment confirmed successfully with BuyerMSP identity - Certificate status changed to CERTIFICATE_PAID
+[0mPUT /api/certificates/confirm-payment/CERT_TEST_2025_001 [32m200[0m 2261.258 ms - 623[0m
+🏛️ Step 3: Starting certificate issuance process { certId: 'CERT_TEST_2025_001', issuerId: 'ISSUER_001' }
+🔄 Executing CLI command with IssuerMSP identity for certificate issuance...
+🔑 Using MSP: IssuerMSP for Step 3
+📋 Endorsement: issuer + buyer (NO generator for certificate workflow)
+📝 Data: {
+  certId: 'CERT_TEST_2025_001',
+  issuerId: 'ISSUER_001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:23:23.629 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:23:23.632 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:23:23.632 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T12:22:20.000Z\",\"createdBy\":\"BUYER_001\",\"lastModified\":\"2025-11-08T12:23:21.000Z\",\"requestTimestamp\":\"2025-11-08T12:22:20.141Z\",\"transactionId\":\"7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94\",\"workflowStep\":\"STEP_3_CERTIFICATE_ISSUED\",\"paymentConfirmationTxId\":\"207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192\",\"transactionConsistency\":{\"txId\":\"6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac\",\"timestamp\":\"2025-11-08T12:23:21.000Z\",\"function\":\"issueCertificate\",\"endorser\":\"IssuerMSP\",\"stateHash\":\"895fe19e1916c318d94f431b11a1d69e95dd4969bf573e77fa67387f8119800e\"},\"issuanceTxId\":\"6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac\"},\"certificateId\":\"CERT_TEST_2025_001\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate issued by authorized issuer after payment verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":false,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_TEST_2025_001-7b8c50f430ff\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1,\"energyDataId\":\"ENERGY_001\",\"generationDate\":\"2025-11-08T12:22:20.331Z\",\"location\":\"Mock Location\",\"sourceType\":\"Solar\",\"unit\":\"MWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":\"2026-11-08T12:23:21.000Z\",\"issuedAt\":\"2025-11-08T12:23:21.000Z\",\"issuedBy\":\"ISSUER_001\",\"paidAt\":\"2025-11-08T12:22:37.000Z\",\"paidBy\":\"BUYER_001\",\"requestedAt\":\"2025-11-08T12:22:20.000Z\",\"requestedBy\":\"BUYER_001\"},\"parties\":{\"buyer\":{\"buyerId\":\"BUYER_001\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GENERATOR_001\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER_001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T12:22:37.000Z\",\"paymentConfirmedBy\":\"BUYER_001\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_TEST_001\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:22:20.000Z\",\"paymentStatus\":\"VERIFIED\",\"paymentVerified\":true,\"paymentVerifiedAt\":\"2025-11-08T12:23:21.000Z\",\"paymentVerifiedBy\":\"ISSUER_001\"},\"security\":{\"certificateHash\":null,\"cryptographicStandard\":\"SHA-256\",\"securityLevel\":\"MEDIUM\",\"serialNumber\":null},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully with IssuerMSP identity
+[0mPUT /api/certificates/issue/CERT_TEST_2025_001 [32m200[0m 2233.760 ms - 487[0m
+🚀 Starting certificate completion process { certId: 'CERT_TEST_2025_001', buyerId: 'BUYER_001' }
+🔄 Executing CLI command with BuyerMSP identity for certificate completion (Step 5)...
+🔑 Using MSP: BuyerMSP for Step 5
+📝 Data: {
+  certId: 'CERT_TEST_2025_001',
+  buyerId: 'BUYER_001',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:23:39.992 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [256e31fd19acb15755ead4207fd4423325bc2854ed3068558b90ca1032f1247b] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:23:39.993 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [256e31fd19acb15755ead4207fd4423325bc2854ed3068558b90ca1032f1247b] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:23:39.993 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T12:22:20.000Z\",\"createdBy\":\"BUYER_001\",\"lastModified\":\"2025-11-08T12:23:37.000Z\",\"requestTimestamp\":\"2025-11-08T12:22:20.141Z\",\"transactionId\":\"7b8c50f430ffaac3b1cdec2f47a5b6e40859858f38e3578577fe7ab5e11d3a94\",\"workflowStep\":\"STEP_4_COMPLETED\",\"paymentConfirmationTxId\":\"207ccfdf3e419f5dc2009ec2f8a3a7d2d1910fd929804e01c06a1880bf72c192\",\"transactionConsistency\":{\"txId\":\"6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac\",\"timestamp\":\"2025-11-08T12:23:21.000Z\",\"function\":\"issueCertificate\",\"endorser\":\"IssuerMSP\",\"stateHash\":\"895fe19e1916c318d94f431b11a1d69e95dd4969bf573e77fa67387f8119800e\"},\"issuanceTxId\":\"6c5f183b1332d3e612f7c48368d89799228af77249538253be7ead11b4ded4ac\",\"completionTxId\":\"256e31fd19acb15755ead4207fd4423325bc2854ed3068558b90ca1032f1247b\"},\"certificateId\":\"CERT_TEST_2025_001\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and activated by buyer\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":false,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_TEST_2025_001-7b8c50f430ff\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1,\"energyDataId\":\"ENERGY_001\",\"generationDate\":\"2025-11-08T12:22:20.331Z\",\"location\":\"Mock Location\",\"sourceType\":\"Solar\",\"unit\":\"MWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-08T12:23:37.000Z\",\"completedBy\":\"BUYER_001\",\"expiresAt\":\"2026-11-08T12:23:21.000Z\",\"issuedAt\":\"2025-11-08T12:23:21.000Z\",\"issuedBy\":\"ISSUER_001\",\"paidAt\":\"2025-11-08T12:22:37.000Z\",\"paidBy\":\"BUYER_001\",\"requestedAt\":\"2025-11-08T12:22:20.000Z\",\"requestedBy\":\"BUYER_001\"},\"parties\":{\"buyer\":{\"buyerId\":\"BUYER_001\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GENERATOR_001\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER_001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T12:22:37.000Z\",\"paymentConfirmedBy\":\"BUYER_001\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_TEST_001\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:22:20.000Z\",\"paymentStatus\":\"VERIFIED\",\"paymentVerified\":true,\"paymentVerifiedAt\":\"2025-11-08T12:23:21.000Z\",\"paymentVerifiedBy\":\"ISSUER_001\"},\"security\":{\"certificateHash\":null,\"cryptographicStandard\":\"SHA-256\",\"securityLevel\":\"MEDIUM\",\"serialNumber\":null},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully with BuyerMSP identity
+[0mPUT /api/certificates/complete/CERT_TEST_2025_001 [32m200[0m 2276.638 ms - 441[0m
+🚀 Starting certificate completion process { certId: 'CERT_TEST_2025_001', buyerId: 'BUYER_001' }
+🔄 Executing CLI command with BuyerMSP identity for certificate completion (Step 5)...
+🔑 Using MSP: BuyerMSP for Step 5
+📝 Data: {
+  certId: 'CERT_TEST_2025_001',
+  buyerId: 'BUYER_001',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_TEST_2025_001 must be CERTIFICATE_ISSUED before completion. Current status: COMPLETED" 
+
+❌ CLI command error: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec \
+            -e CORE_PEER_LOCALMSPID=BuyerMSP \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/users/Admin@buyer.rec.com/msp \
+            -e CORE_PEER_ADDRESS=peer0.buyer.rec.com:11051 \
+            cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_TEST_2025_001","BUYER_001"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_TEST_2025_001 must be CERTIFICATE_ISSUED before completion. Current status: COMPLETED" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'cd /home/najla/Downloads/REC-Blockchain && docker exec \\\n' +
+    '            -e CORE_PEER_LOCALMSPID=BuyerMSP \\\n' +
+    '            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt \\\n' +
+    '            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/users/Admin@buyer.rec.com/msp \\\n' +
+    '            -e CORE_PEER_ADDRESS=peer0.buyer.rec.com:11051 \\\n' +
+    `            cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_TEST_2025_001","BUYER_001"]}' --waitForEvent`
+}
+💥 Error completing certificate: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec \
+            -e CORE_PEER_LOCALMSPID=BuyerMSP \
+            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt \
+            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/users/Admin@buyer.rec.com/msp \
+            -e CORE_PEER_ADDRESS=peer0.buyer.rec.com:11051 \
+            cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_TEST_2025_001","BUYER_001"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_TEST_2025_001 must be CERTIFICATE_ISSUED before completion. Current status: COMPLETED" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'cd /home/najla/Downloads/REC-Blockchain && docker exec \\\n' +
+    '            -e CORE_PEER_LOCALMSPID=BuyerMSP \\\n' +
+    '            -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt \\\n' +
+    '            -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/users/Admin@buyer.rec.com/msp \\\n' +
+    '            -e CORE_PEER_ADDRESS=peer0.buyer.rec.com:11051 \\\n' +
+    `            cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_TEST_2025_001","BUYER_001"]}' --waitForEvent`
+}
+[0mPUT /api/certificates/complete/CERT_TEST_2025_001 [31m500[0m 191.384 ms - 1574[0m
+🔍 Step 3: Starting certificate request with comprehensive security validation
+📋 Received security data: {
+  security: {
+    certificate_hash: '7ca35db16a742353eac582b5c21752cb324b51f31db26f9c1255299cefa18694',
+    serial_number: 'REC-2025-56bfee7e4603',
+    security_level: 'HIGH',
+    tamper_proof: true,
+    generated_at: '2025-11-08T12:29:33.935148Z'
+  },
+  compliance: { anti_duplication_verified: true, energy_data_validated: true },
+  auditTrail: {
+    request_timestamp: '2025-11-08T12:29:33.935523Z',
+    request_by: 'Vian',
+    order_id: 153
+  }
+}
+🔍 Pre-validation 1: Checking energy data integrity
+✅ Energy data integrity validated successfully
+🔍 Pre-validation 2: Checking certificate uniqueness (Anti-duplication)
+⚠️ Certificate uniqueness check failed, proceeding with caution
+🔍 Pre-validation 3: Checking energy data duplication
+✅ Energy data verified and ready for certificate request
+🕐 Using consistent timestamp for ALL fields: 2025-11-08T12:29:34.446Z
+🔄 Executing CLI command with BuyerMSP identity for certificate request (Step 1)...
+🔑 Using MSP: BuyerMSP for Step 1
+📋 Endorsement: buyer + issuer (NO generator for certificate workflow)
+📝 Data: {
+  certificateId: 'REC-2025-ETPOFC7F',
+  energyDataId: 'ENERGI_PLTA_1762601047_438',
+  buyerId: 'Vian',
+  hasSecurityData: true,
+  securityDataLength: 406,
+  argsCount: 4
+}
+🔍 CLI Args being sent: [
+  'REC-2025-ETPOFC7F',
+  'ENERGI_PLTA_1762601047_438',
+  'Vian',
+  'SECURITY_DATA_PRESENT'
+]
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:29:36.693 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [941345255917aec362cbb4413fc2013d5c40672b4e836510c754351dc251640b] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:29:36.694 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [941345255917aec362cbb4413fc2013d5c40672b4e836510c754351dc251640b] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:29:36.694 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"REC-2025-ETPOFC7F\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer - waiting for payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"amount\":1200000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-08T12:29:34.000Z\",\"requestedBy\":\"Vian\",\"paidAt\":null,\"paidBy\":null,\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:29:34.000Z\",\"paymentConfirmed\":false,\"paymentConfirmedAt\":null,\"paymentConfirmedBy\":null,\"paymentStatus\":\"PENDING\",\"paymentMethod\":null,\"paymentReference\":null,\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"auditTrail\":{\"createdAt\":\"2025-11-08T12:29:34.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T12:29:34.000Z\",\"transactionId\":\"941345255917aec362cbb4413fc2013d5c40672b4e836510c754351dc251640b\",\"workflowStep\":\"STEP_1_CERTIFICATE_REQUESTED\",\"requestTimestamp\":\"2025-11-08T12:29:33.935523Z\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"antiDuplicationVerified\":true,\"energyDataValidated\":true},\"security\":{\"certificateHash\":\"7ca35db16a742353eac582b5c21752cb324b51f31db26f9c1255299cefa18694\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"tamperProof\":true,\"securityLevel\":\"HIGH\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T12:29:33.935148Z\"}}" 
+
+✅ Certificate request created successfully with ENHANCED SECURITY VALIDATION
+[0mPOST /api/certificates/request [32m201[0m 2766.258 ms - 604[0m
+💰 Step 2: Starting payment confirmation process {
+  certId: 'REC-2025-ETPOFC7F',
+  buyerId: 'Vian',
+  paymentMethod: 'bank_transfer',
+  paymentReference: 'PAY_REC-2025-ETPOFC7F_1762604988'
+}
+🔄 Executing CLI command with BuyerMSP identity for payment confirmation...
+🔑 Using MSP: BuyerMSP for Step 2
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:29:50.512 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [916593decba537cf18da5eb777a5abad88fb27f5cc31d3c39ea4a56096f752be] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:29:50.514 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [916593decba537cf18da5eb777a5abad88fb27f5cc31d3c39ea4a56096f752be] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:29:50.514 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T12:29:34.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T12:29:48.000Z\",\"requestTimestamp\":\"2025-11-08T12:29:33.935523Z\",\"transactionId\":\"941345255917aec362cbb4413fc2013d5c40672b4e836510c754351dc251640b\",\"workflowStep\":\"STEP_2_CERTIFICATE_PAID\",\"paymentConfirmationTxId\":\"916593decba537cf18da5eb777a5abad88fb27f5cc31d3c39ea4a56096f752be\",\"transactionConsistency\":{\"txId\":\"916593decba537cf18da5eb777a5abad88fb27f5cc31d3c39ea4a56096f752be\",\"timestamp\":\"2025-11-08T12:29:48.000Z\",\"function\":\"confirmPayment\",\"endorser\":\"BuyerMSP\",\"stateHash\":\"0fe0445e4e7fee3670c07bac9aede93a6db67ff30a82d2b34041b3a86f4f0d16\"}},\"certificateId\":\"REC-2025-ETPOFC7F\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_PAID\",\"statusDescription\":\"Payment confirmed by buyer - waiting for issuer verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null,\"issuedAt\":null,\"issuedBy\":null,\"paidAt\":\"2025-11-08T12:29:48.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T12:29:34.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T12:29:48.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-ETPOFC7F_1762604988\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:29:34.000Z\",\"paymentStatus\":\"CONFIRMED\",\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"security\":{\"certificateHash\":\"7ca35db16a742353eac582b5c21752cb324b51f31db26f9c1255299cefa18694\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T12:29:33.935148Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Payment confirmed successfully with BuyerMSP identity - Certificate status changed to CERTIFICATE_PAID
+[0mPUT /api/certificates/confirm-payment/REC-2025-ETPOFC7F [32m200[0m 2264.479 ms - 637[0m
+🏛️ Step 3: Starting certificate issuance process { certId: 'REC-2025-ETPOFC7F', issuerId: 'ISSUER001' }
+🔄 Executing CLI command with IssuerMSP identity for certificate issuance...
+🔑 Using MSP: IssuerMSP for Step 3
+📋 Endorsement: issuer + buyer (NO generator for certificate workflow)
+📝 Data: {
+  certId: 'REC-2025-ETPOFC7F',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 12:30:13.908 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [74e10a9313f6bb02e5ed85c696c4c5df632d0530ec054172c782e26e49232f0c] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 12:30:13.909 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [74e10a9313f6bb02e5ed85c696c4c5df632d0530ec054172c782e26e49232f0c] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 12:30:13.909 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T12:29:34.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T12:30:11.000Z\",\"requestTimestamp\":\"2025-11-08T12:29:33.935523Z\",\"transactionId\":\"941345255917aec362cbb4413fc2013d5c40672b4e836510c754351dc251640b\",\"workflowStep\":\"STEP_3_CERTIFICATE_ISSUED\",\"paymentConfirmationTxId\":\"916593decba537cf18da5eb777a5abad88fb27f5cc31d3c39ea4a56096f752be\",\"transactionConsistency\":{\"txId\":\"74e10a9313f6bb02e5ed85c696c4c5df632d0530ec054172c782e26e49232f0c\",\"timestamp\":\"2025-11-08T12:30:11.000Z\",\"function\":\"issueCertificate\",\"endorser\":\"IssuerMSP\",\"stateHash\":\"e9f2bfc095551de552f7609def159c7cd12dbb3591cab0bfa6336b38acfabb7f\"},\"issuanceTxId\":\"74e10a9313f6bb02e5ed85c696c4c5df632d0530ec054172c782e26e49232f0c\"},\"certificateId\":\"REC-2025-ETPOFC7F\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate issued by authorized issuer after payment verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":\"2026-11-08T12:30:11.000Z\",\"issuedAt\":\"2025-11-08T12:30:11.000Z\",\"issuedBy\":\"ISSUER001\",\"paidAt\":\"2025-11-08T12:29:48.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T12:29:34.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T12:29:48.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-ETPOFC7F_1762604988\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T12:29:34.000Z\",\"paymentStatus\":\"VERIFIED\",\"paymentVerified\":true,\"paymentVerifiedAt\":\"2025-11-08T12:30:11.000Z\",\"paymentVerifiedBy\":\"ISSUER001\"},\"security\":{\"certificateHash\":\"7ca35db16a742353eac582b5c21752cb324b51f31db26f9c1255299cefa18694\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T12:29:33.935148Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-56bfee7e4603\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully with IssuerMSP identity
+[0mPUT /api/certificates/issue/REC-2025-ETPOFC7F [32m200[0m 2231.030 ms - 485[0m
+🔍 Step 3: Starting certificate request with comprehensive security validation
+📋 Received security data: {
+  security: {
+    certificate_hash: '157ad1fb51630758400726ac427201a7c2f0168cbe21ab43a9fe31d119d69184',
+    serial_number: 'REC-2025-2cdd59ec22a7',
+    security_level: 'HIGH',
+    tamper_proof: true,
+    generated_at: '2025-11-08T17:23:14.824539Z'
+  },
+  compliance: { anti_duplication_verified: true, energy_data_validated: true },
+  auditTrail: {
+    request_timestamp: '2025-11-08T17:23:14.824747Z',
+    request_by: 'Vian',
+    order_id: 156
+  }
+}
+🔍 Pre-validation 1: Checking energy data integrity
+✅ Energy data integrity validated successfully
+🔍 Pre-validation 2: Checking certificate uniqueness (Anti-duplication)
+⚠️ Certificate uniqueness check failed, proceeding with caution
+🔍 Pre-validation 3: Checking energy data duplication
+✅ Energy data verified and ready for certificate request
+🕐 Using consistent timestamp for ALL fields: 2025-11-08T17:23:15.322Z
+🔄 Executing CLI command with BuyerMSP identity for certificate request (Step 1)...
+🔑 Using MSP: BuyerMSP for Step 1
+📋 Endorsement: buyer + issuer (NO generator for certificate workflow)
+📝 Data: {
+  certificateId: 'REC-2025-2BIQCZ3K',
+  energyDataId: 'ENERGI_PLTA_1762601047_438',
+  buyerId: 'Vian',
+  hasSecurityData: true,
+  securityDataLength: 406,
+  argsCount: 4
+}
+🔍 CLI Args being sent: [
+  'REC-2025-2BIQCZ3K',
+  'ENERGI_PLTA_1762601047_438',
+  'Vian',
+  'SECURITY_DATA_PRESENT'
+]
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 17:23:17.565 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [8de5a94026827974e89ce81d5e72138b40101582d97a71f9a8aa18041e2570fe] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 17:23:17.565 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [8de5a94026827974e89ce81d5e72138b40101582d97a71f9a8aa18041e2570fe] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 17:23:17.566 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"REC-2025-2BIQCZ3K\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer - waiting for payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"amount\":1200000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-08T17:23:15.000Z\",\"requestedBy\":\"Vian\",\"paidAt\":null,\"paidBy\":null,\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T17:23:15.000Z\",\"paymentConfirmed\":false,\"paymentConfirmedAt\":null,\"paymentConfirmedBy\":null,\"paymentStatus\":\"PENDING\",\"paymentMethod\":null,\"paymentReference\":null,\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"auditTrail\":{\"createdAt\":\"2025-11-08T17:23:15.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T17:23:15.000Z\",\"transactionId\":\"8de5a94026827974e89ce81d5e72138b40101582d97a71f9a8aa18041e2570fe\",\"workflowStep\":\"STEP_1_CERTIFICATE_REQUESTED\",\"requestTimestamp\":\"2025-11-08T17:23:14.824747Z\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"antiDuplicationVerified\":true,\"energyDataValidated\":true},\"security\":{\"certificateHash\":\"157ad1fb51630758400726ac427201a7c2f0168cbe21ab43a9fe31d119d69184\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"tamperProof\":true,\"securityLevel\":\"HIGH\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T17:23:14.824539Z\"}}" 
+
+✅ Certificate request created successfully with ENHANCED SECURITY VALIDATION
+[0mPOST /api/certificates/request [32m201[0m 2749.291 ms - 604[0m
+💰 Step 2: Starting payment confirmation process {
+  certId: 'REC-2025-2BIQCZ3K',
+  buyerId: 'Vian',
+  paymentMethod: 'bank_transfer',
+  paymentReference: 'PAY_REC-2025-2BIQCZ3K_1762622687'
+}
+🔄 Executing CLI command with BuyerMSP identity for payment confirmation...
+🔑 Using MSP: BuyerMSP for Step 2
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 17:24:49.686 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [4c7d0bd76a8c0c09aa6e7c465d03b20c3ea3578cce6253d4850b01bf7238d2f9] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 17:24:49.687 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [4c7d0bd76a8c0c09aa6e7c465d03b20c3ea3578cce6253d4850b01bf7238d2f9] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 17:24:49.688 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T17:23:15.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T17:24:47.000Z\",\"requestTimestamp\":\"2025-11-08T17:23:14.824747Z\",\"transactionId\":\"8de5a94026827974e89ce81d5e72138b40101582d97a71f9a8aa18041e2570fe\",\"workflowStep\":\"STEP_2_CERTIFICATE_PAID\",\"paymentConfirmationTxId\":\"4c7d0bd76a8c0c09aa6e7c465d03b20c3ea3578cce6253d4850b01bf7238d2f9\",\"transactionConsistency\":{\"txId\":\"4c7d0bd76a8c0c09aa6e7c465d03b20c3ea3578cce6253d4850b01bf7238d2f9\",\"timestamp\":\"2025-11-08T17:24:47.000Z\",\"function\":\"confirmPayment\",\"endorser\":\"BuyerMSP\",\"stateHash\":\"0fe0445e4e7fee3670c07bac9aede93a6db67ff30a82d2b34041b3a86f4f0d16\"}},\"certificateId\":\"REC-2025-2BIQCZ3K\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_PAID\",\"statusDescription\":\"Payment confirmed by buyer - waiting for issuer verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null,\"issuedAt\":null,\"issuedBy\":null,\"paidAt\":\"2025-11-08T17:24:47.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T17:23:15.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T17:24:47.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-2BIQCZ3K_1762622687\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T17:23:15.000Z\",\"paymentStatus\":\"CONFIRMED\",\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"security\":{\"certificateHash\":\"157ad1fb51630758400726ac427201a7c2f0168cbe21ab43a9fe31d119d69184\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T17:23:14.824539Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Payment confirmed successfully with BuyerMSP identity - Certificate status changed to CERTIFICATE_PAID
+[0mPUT /api/certificates/confirm-payment/REC-2025-2BIQCZ3K [32m200[0m 2235.938 ms - 637[0m
+🏛️ Step 3: Starting certificate issuance process { certId: 'REC-2025-2BIQCZ3K', issuerId: 'ISSUER001' }
+🔄 Executing CLI command with IssuerMSP identity for certificate issuance...
+🔑 Using MSP: IssuerMSP for Step 3
+📋 Endorsement: issuer + buyer (NO generator for certificate workflow)
+📝 Data: {
+  certId: 'REC-2025-2BIQCZ3K',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 17:25:20.028 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [bfce308f867f9f7d1847a27cf17586bc37d7e4616a4fa308e1a19c9748eaa4a9] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 17:25:20.030 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [bfce308f867f9f7d1847a27cf17586bc37d7e4616a4fa308e1a19c9748eaa4a9] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 17:25:20.030 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T17:23:15.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T17:25:17.000Z\",\"requestTimestamp\":\"2025-11-08T17:23:14.824747Z\",\"transactionId\":\"8de5a94026827974e89ce81d5e72138b40101582d97a71f9a8aa18041e2570fe\",\"workflowStep\":\"STEP_3_CERTIFICATE_ISSUED\",\"paymentConfirmationTxId\":\"4c7d0bd76a8c0c09aa6e7c465d03b20c3ea3578cce6253d4850b01bf7238d2f9\",\"transactionConsistency\":{\"txId\":\"bfce308f867f9f7d1847a27cf17586bc37d7e4616a4fa308e1a19c9748eaa4a9\",\"timestamp\":\"2025-11-08T17:25:17.000Z\",\"function\":\"issueCertificate\",\"endorser\":\"IssuerMSP\",\"stateHash\":\"9f718abf95b25f76b1f26aceb0b5bcf81ea02b2a084786c95fbc4715731888d6\"},\"issuanceTxId\":\"bfce308f867f9f7d1847a27cf17586bc37d7e4616a4fa308e1a19c9748eaa4a9\"},\"certificateId\":\"REC-2025-2BIQCZ3K\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate issued by authorized issuer after payment verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":\"2026-11-08T17:25:17.000Z\",\"issuedAt\":\"2025-11-08T17:25:17.000Z\",\"issuedBy\":\"ISSUER001\",\"paidAt\":\"2025-11-08T17:24:47.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T17:23:15.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T17:24:47.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-2BIQCZ3K_1762622687\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T17:23:15.000Z\",\"paymentStatus\":\"VERIFIED\",\"paymentVerified\":true,\"paymentVerifiedAt\":\"2025-11-08T17:25:17.000Z\",\"paymentVerifiedBy\":\"ISSUER001\"},\"security\":{\"certificateHash\":\"157ad1fb51630758400726ac427201a7c2f0168cbe21ab43a9fe31d119d69184\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T17:23:14.824539Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-2cdd59ec22a7\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully with IssuerMSP identity
+[0mPUT /api/certificates/issue/REC-2025-2BIQCZ3K [32m200[0m 2238.499 ms - 485[0m
+🔍 Step 3: Starting certificate request with comprehensive security validation
+📋 Received security data: {
+  security: {
+    certificate_hash: 'bf2e515abb0f3d0ae447fd445cefd276358947773985d77ba013ed7d08cbf6d9',
+    serial_number: 'REC-2025-c14eecca0d65',
+    security_level: 'HIGH',
+    tamper_proof: true,
+    generated_at: '2025-11-08T20:25:54.139244Z'
+  },
+  compliance: { anti_duplication_verified: true, energy_data_validated: true },
+  auditTrail: {
+    request_timestamp: '2025-11-08T20:25:54.139493Z',
+    request_by: 'Vian',
+    order_id: 157
+  }
+}
+🔍 Pre-validation 1: Checking energy data integrity
+✅ Energy data integrity validated successfully
+🔍 Pre-validation 2: Checking certificate uniqueness (Anti-duplication)
+⚠️ Certificate uniqueness check failed, proceeding with caution
+🔍 Pre-validation 3: Checking energy data duplication
+✅ Energy data verified and ready for certificate request
+🕐 Using consistent timestamp for ALL fields: 2025-11-08T20:25:54.610Z
+🔄 Executing CLI command with BuyerMSP identity for certificate request (Step 1)...
+🔑 Using MSP: BuyerMSP for Step 1
+📋 Endorsement: buyer + issuer (NO generator for certificate workflow)
+📝 Data: {
+  certificateId: 'REC-2025-XBVHA2VM',
+  energyDataId: 'ENERGI_PLTA_1762601047_438',
+  buyerId: 'Vian',
+  hasSecurityData: true,
+  securityDataLength: 406,
+  argsCount: 4
+}
+🔍 CLI Args being sent: [
+  'REC-2025-XBVHA2VM',
+  'ENERGI_PLTA_1762601047_438',
+  'Vian',
+  'SECURITY_DATA_PRESENT'
+]
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 20:25:56.851 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [a373ee51229cde3a29bdb9dac65ee11e6c18962a9a330255e5797d581e5453cb] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 20:25:56.851 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [a373ee51229cde3a29bdb9dac65ee11e6c18962a9a330255e5797d581e5453cb] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 20:25:56.852 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"REC-2025-XBVHA2VM\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer - waiting for payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"amount\":1200000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-08T20:25:54.000Z\",\"requestedBy\":\"Vian\",\"paidAt\":null,\"paidBy\":null,\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T20:25:54.000Z\",\"paymentConfirmed\":false,\"paymentConfirmedAt\":null,\"paymentConfirmedBy\":null,\"paymentStatus\":\"PENDING\",\"paymentMethod\":null,\"paymentReference\":null,\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"auditTrail\":{\"createdAt\":\"2025-11-08T20:25:54.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T20:25:54.000Z\",\"transactionId\":\"a373ee51229cde3a29bdb9dac65ee11e6c18962a9a330255e5797d581e5453cb\",\"workflowStep\":\"STEP_1_CERTIFICATE_REQUESTED\",\"requestTimestamp\":\"2025-11-08T20:25:54.139493Z\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"antiDuplicationVerified\":true,\"energyDataValidated\":true},\"security\":{\"certificateHash\":\"bf2e515abb0f3d0ae447fd445cefd276358947773985d77ba013ed7d08cbf6d9\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"tamperProof\":true,\"securityLevel\":\"HIGH\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T20:25:54.139244Z\"}}" 
+
+✅ Certificate request created successfully with ENHANCED SECURITY VALIDATION
+[0mPOST /api/certificates/request [32m201[0m 2720.255 ms - 604[0m
+💰 Step 2: Starting payment confirmation process {
+  certId: 'REC-2025-XBVHA2VM',
+  buyerId: 'Vian',
+  paymentMethod: 'bank_transfer',
+  paymentReference: 'PAY_REC-2025-XBVHA2VM_1762633569'
+}
+🔄 Executing CLI command with BuyerMSP identity for payment confirmation...
+🔑 Using MSP: BuyerMSP for Step 2
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 20:26:12.156 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [527945dc7a6c73646c0a432bb691796551200a17bdcb79c27fe8c270ff0c0400] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 20:26:12.157 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [527945dc7a6c73646c0a432bb691796551200a17bdcb79c27fe8c270ff0c0400] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 20:26:12.158 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T20:25:54.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T20:26:10.000Z\",\"requestTimestamp\":\"2025-11-08T20:25:54.139493Z\",\"transactionId\":\"a373ee51229cde3a29bdb9dac65ee11e6c18962a9a330255e5797d581e5453cb\",\"workflowStep\":\"STEP_2_CERTIFICATE_PAID\",\"paymentConfirmationTxId\":\"527945dc7a6c73646c0a432bb691796551200a17bdcb79c27fe8c270ff0c0400\",\"transactionConsistency\":{\"txId\":\"527945dc7a6c73646c0a432bb691796551200a17bdcb79c27fe8c270ff0c0400\",\"timestamp\":\"2025-11-08T20:26:10.000Z\",\"function\":\"confirmPayment\",\"endorser\":\"BuyerMSP\",\"stateHash\":\"0fe0445e4e7fee3670c07bac9aede93a6db67ff30a82d2b34041b3a86f4f0d16\"}},\"certificateId\":\"REC-2025-XBVHA2VM\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_PAID\",\"statusDescription\":\"Payment confirmed by buyer - waiting for issuer verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":null,\"issuedAt\":null,\"issuedBy\":null,\"paidAt\":\"2025-11-08T20:26:10.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T20:25:54.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T20:26:10.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-XBVHA2VM_1762633569\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T20:25:54.000Z\",\"paymentStatus\":\"CONFIRMED\",\"paymentVerified\":false,\"paymentVerifiedAt\":null,\"paymentVerifiedBy\":null},\"security\":{\"certificateHash\":\"bf2e515abb0f3d0ae447fd445cefd276358947773985d77ba013ed7d08cbf6d9\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T20:25:54.139244Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Payment confirmed successfully with BuyerMSP identity - Certificate status changed to CERTIFICATE_PAID
+[0mPUT /api/certificates/confirm-payment/REC-2025-XBVHA2VM [32m200[0m 2235.597 ms - 637[0m
+🏛️ Step 3: Starting certificate issuance process { certId: 'REC-2025-XBVHA2VM', issuerId: 'ISSUER001' }
+🔄 Executing CLI command with IssuerMSP identity for certificate issuance...
+🔑 Using MSP: IssuerMSP for Step 3
+📋 Endorsement: issuer + buyer (NO generator for certificate workflow)
+📝 Data: {
+  certId: 'REC-2025-XBVHA2VM',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-08 20:26:33.020 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [7e0ea99c36bdfdfcb3aa2a40be5cce39fa1b900bc96fc6aa80b1a2fb8807dbdf] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-08 20:26:33.020 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [7e0ea99c36bdfdfcb3aa2a40be5cce39fa1b900bc96fc6aa80b1a2fb8807dbdf] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-08 20:26:33.020 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-08T20:25:54.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-08T20:26:30.000Z\",\"requestTimestamp\":\"2025-11-08T20:25:54.139493Z\",\"transactionId\":\"a373ee51229cde3a29bdb9dac65ee11e6c18962a9a330255e5797d581e5453cb\",\"workflowStep\":\"STEP_3_CERTIFICATE_ISSUED\",\"paymentConfirmationTxId\":\"527945dc7a6c73646c0a432bb691796551200a17bdcb79c27fe8c270ff0c0400\",\"transactionConsistency\":{\"txId\":\"7e0ea99c36bdfdfcb3aa2a40be5cce39fa1b900bc96fc6aa80b1a2fb8807dbdf\",\"timestamp\":\"2025-11-08T20:26:30.000Z\",\"function\":\"issueCertificate\",\"endorser\":\"IssuerMSP\",\"stateHash\":\"325d2cb18ccc734cf6c9a4bbac82ae95287bfc0381cc09a1c4478350633a9daf\"},\"issuanceTxId\":\"7e0ea99c36bdfdfcb3aa2a40be5cce39fa1b900bc96fc6aa80b1a2fb8807dbdf\"},\"certificateId\":\"REC-2025-XBVHA2VM\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate issued by authorized issuer after payment verification\",\"type\":\"REC\"},\"compliance\":{\"antiDuplicationVerified\":true,\"certificationBody\":\"AUTHORIZED_ISSUER\",\"energyDataValidated\":true,\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":1200000,\"energyDataId\":\"ENERGI_PLTA_1762601047_438\",\"generationDate\":\"2022-12-12\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"completedBy\":null,\"expiresAt\":\"2026-11-08T20:26:30.000Z\",\"issuedAt\":\"2025-11-08T20:26:30.000Z\",\"issuedBy\":\"ISSUER001\",\"paidAt\":\"2025-11-08T20:26:10.000Z\",\"paidBy\":\"Vian\",\"requestedAt\":\"2025-11-08T20:25:54.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-08T20:26:10.000Z\",\"paymentConfirmedBy\":\"Vian\",\"paymentMethod\":\"bank_transfer\",\"paymentReference\":\"PAY_REC-2025-XBVHA2VM_1762633569\",\"paymentRequested\":true,\"paymentRequestedAt\":\"2025-11-08T20:25:54.000Z\",\"paymentStatus\":\"VERIFIED\",\"paymentVerified\":true,\"paymentVerifiedAt\":\"2025-11-08T20:26:30.000Z\",\"paymentVerifiedBy\":\"ISSUER001\"},\"security\":{\"certificateHash\":\"bf2e515abb0f3d0ae447fd445cefd276358947773985d77ba013ed7d08cbf6d9\",\"cryptographicStandard\":\"SHA-256\",\"generatedAt\":\"2025-11-08T20:25:54.139244Z\",\"securityLevel\":\"HIGH\",\"serialNumber\":\"REC-2025-c14eecca0d65\",\"tamperProof\":true},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully with IssuerMSP identity
+[0mPUT /api/certificates/issue/REC-2025-XBVHA2VM [32m200[0m 2226.362 ms - 485[0m
+[0mPUT /api/certificates/complete/REC-2025-XBVHA2VM [33m400[0m 0.576 ms - 49[0m
+[0mPUT /api/certificates/complete/REC-2025-XBVHA2VM [33m400[0m 0.508 ms - 49[0m

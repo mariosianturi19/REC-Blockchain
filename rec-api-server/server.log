@@ -1,0 +1,7 @@
+nohup: ignoring input
+[dotenv@17.2.3] injecting env (9) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+🚀 REC API Server running on port 3000
+📝 Health check: http://localhost:3000/health
+🌐 API Documentation: http://localhost:3000/
+🔗 Environment: development

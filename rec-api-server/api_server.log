@@ -1,0 +1,272 @@
+nohup: ignoring input
+[dotenv@17.2.3] injecting env (9) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+🚀 REC API Server running on port 3000
+📝 Health check: http://localhost:3000/health
+🌐 API Documentation: http://localhost:3000/
+🔗 Environment: development
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 08:37:20.482 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [950bd50cca998fbb002dc1a39ff0b6fc470f025decfb6ef9f7d647810ae54123] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 08:37:20.484 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [950bd50cca998fbb002dc1a39ff0b6fc470f025decfb6ef9f7d647810ae54123] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 08:37:20.484 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T08:15:56.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T08:37:18.000Z\",\"transactionId\":\"7267a005309f3f49084e26862319abe98fa51b5711c86c86a2a53404b8bd2885\",\"issuanceTxId\":\"7fd93635785e04597912c57da0c6adc97d15c2da1677df771aaf17e977337984\",\"completionTxId\":\"950bd50cca998fbb002dc1a39ff0b6fc470f025decfb6ef9f7d647810ae54123\"},\"certificateId\":\"CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and received by buyer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956-7267a005309f\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-06T08:37:18.000Z\",\"expiresAt\":\"2026-11-06T08:16:17.000Z\",\"issuedAt\":\"2025-11-06T08:16:17.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T08:15:56.000Z\",\"requestedBy\":\"Vian\",\"completedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T08:15:56.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully
+[0mPUT /api/certificates/complete/CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956 [32m200[0m 2260.067 ms - 274[0m
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956 must be CERTIFICATE_ISSUED before completion" 
+
+❌ CLI command error: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956","Vian"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956 must be CERTIFICATE_ISSUED before completion" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: `cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956","Vian"]}' --waitForEvent`
+}
+💥 Error completing certificate: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956","Vian"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956 must be CERTIFICATE_ISSUED before completion" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: `cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:completeCertificate","Args":["CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956","Vian"]}' --waitForEvent`
+}
+[0mPUT /api/certificates/complete/CERT_REC-TRX-UFTXHVSQSK_CONSOLIDATED_1762416956 [31m500[0m 183.307 ms - 1135[0m
+🔄 Executing CLI command for requestCertificate with buyerId...
+📝 Data: {
+  certificateId: 'CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547',
+  energyDataId: 'ENERGI_PLTA_1762385181_195',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'generator', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 09:32:29.267 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [3f259576e9bf822b1e5bf1ae59d888b31730fe66d88f62aeba91c9f2f854b6e6] committed with status (VALID) at peer0.generator.rec.com:7051
+[34m2025-11-06 09:32:29.272 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [3f259576e9bf822b1e5bf1ae59d888b31730fe66d88f62aeba91c9f2f854b6e6] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 09:32:29.272 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer with payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"amount\":7000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-06T09:32:27.000Z\",\"requestedBy\":\"Vian\",\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T09:32:27.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"auditTrail\":{\"createdAt\":\"2025-11-06T09:32:27.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T09:32:27.000Z\",\"transactionId\":\"3f259576e9bf822b1e5bf1ae59d888b31730fe66d88f62aeba91c9f2f854b6e6\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547-3f259576e9bf\"}}" 
+
+✅ Certificate request created successfully
+[0mPOST /api/certificates/request [32m201[0m 2247.452 ms - 336[0m
+🔄 Executing CLI command for issueCertificate with dynamic endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 09:32:54.048 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [fda17108e1abe30b1ee64bd317d7301744d0f36d2cd1f2d5e862198eaee2719e] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 09:32:54.051 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [fda17108e1abe30b1ee64bd317d7301744d0f36d2cd1f2d5e862198eaee2719e] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 09:32:54.051 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T09:32:27.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T09:32:51.000Z\",\"transactionId\":\"3f259576e9bf822b1e5bf1ae59d888b31730fe66d88f62aeba91c9f2f854b6e6\",\"issuanceTxId\":\"fda17108e1abe30b1ee64bd317d7301744d0f36d2cd1f2d5e862198eaee2719e\"},\"certificateId\":\"CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate officially issued by authorized issuer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547-3f259576e9bf\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"expiresAt\":\"2026-11-06T09:32:51.000Z\",\"issuedAt\":\"2025-11-06T09:32:51.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T09:32:27.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T09:32:27.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully
+[0mPUT /api/certificates/issue/CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547 [32m200[0m 2238.398 ms - 279[0m
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 09:33:16.033 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [5afc3b18c95711f18fe46c2185d62baf528c21ac96ca846f10311f400852c7b6] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 09:33:16.038 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [5afc3b18c95711f18fe46c2185d62baf528c21ac96ca846f10311f400852c7b6] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 09:33:16.038 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T09:32:27.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T09:33:13.000Z\",\"transactionId\":\"3f259576e9bf822b1e5bf1ae59d888b31730fe66d88f62aeba91c9f2f854b6e6\",\"issuanceTxId\":\"fda17108e1abe30b1ee64bd317d7301744d0f36d2cd1f2d5e862198eaee2719e\",\"completionTxId\":\"5afc3b18c95711f18fe46c2185d62baf528c21ac96ca846f10311f400852c7b6\"},\"certificateId\":\"CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and received by buyer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547-3f259576e9bf\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-06T09:33:13.000Z\",\"expiresAt\":\"2026-11-06T09:32:51.000Z\",\"issuedAt\":\"2025-11-06T09:32:51.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T09:32:27.000Z\",\"requestedBy\":\"Vian\",\"completedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T09:32:27.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully
+[0mPUT /api/certificates/complete/CERT_REC-TRX-EF6FC0WLAI_CONSOLIDATED_1762421547 [32m200[0m 2219.812 ms - 274[0m
+🔄 Executing CLI command for requestCertificate with buyerId...
+📝 Data: {
+  certificateId: 'CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140',
+  energyDataId: 'ENERGI_PLTA_1762385181_195',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'generator', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 12:45:42.806 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [fabe21e66ef5a43ecfe621f3125487fad86f0350068938c2776202e1e811bea8] committed with status (VALID) at peer0.generator.rec.com:7051
+[34m2025-11-06 12:45:42.807 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [fabe21e66ef5a43ecfe621f3125487fad86f0350068938c2776202e1e811bea8] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 12:45:42.807 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer with payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"amount\":7000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-06T12:45:40.000Z\",\"requestedBy\":\"Vian\",\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T12:45:40.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"auditTrail\":{\"createdAt\":\"2025-11-06T12:45:40.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T12:45:40.000Z\",\"transactionId\":\"fabe21e66ef5a43ecfe621f3125487fad86f0350068938c2776202e1e811bea8\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140-fabe21e66ef5\"}}" 
+
+✅ Certificate request created successfully
+[0mPOST /api/certificates/request [32m201[0m 2247.793 ms - 336[0m
+🔄 Executing CLI command for issueCertificate with dynamic endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 12:46:23.653 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [747a67e04170c07d68ad12376c374672b315e0f37db02fa5fedf24248c10bfcd] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 12:46:23.654 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [747a67e04170c07d68ad12376c374672b315e0f37db02fa5fedf24248c10bfcd] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 12:46:23.654 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T12:45:40.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T12:46:21.000Z\",\"transactionId\":\"fabe21e66ef5a43ecfe621f3125487fad86f0350068938c2776202e1e811bea8\",\"issuanceTxId\":\"747a67e04170c07d68ad12376c374672b315e0f37db02fa5fedf24248c10bfcd\"},\"certificateId\":\"CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate officially issued by authorized issuer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140-fabe21e66ef5\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"expiresAt\":\"2026-11-06T12:46:21.000Z\",\"issuedAt\":\"2025-11-06T12:46:21.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T12:45:40.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T12:45:40.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully
+[0mPUT /api/certificates/issue/CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 [32m200[0m 2260.101 ms - 279[0m
+🔄 Executing CLI command for issueCertificate with dynamic endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 must be CERTIFICATE_REQUESTED before issuance" 
+
+❌ CLI command error: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:issueCertificate","Args":["CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140","ISSUER001"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 must be CERTIFICATE_REQUESTED before issuance" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: `cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:issueCertificate","Args":["CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140","ISSUER001"]}' --waitForEvent`
+}
+💥 Error issuing certificate: Error: Command failed: cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:issueCertificate","Args":["CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140","ISSUER001"]}' --waitForEvent
+Error: endorsement failure during invoke. response: status:500 message:"Certificate CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 must be CERTIFICATE_REQUESTED before issuance" 
+
+    at ChildProcess.exithandler (node:child_process:422:12)
+    at ChildProcess.emit (node:events:517:28)
+    at maybeClose (node:internal/child_process:1098:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:303:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: `cd /home/najla/Downloads/REC-Blockchain && docker exec cli peer chaincode invoke -o orderer.rec.com:7050 --ordererTLSHostnameOverride orderer.rec.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/rec.com/orderers/orderer.rec.com/msp/tlscacerts/tlsca.rec.com-cert.pem -C recchannel -n rec --peerAddresses peer0.issuer.rec.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/issuer.rec.com/peers/peer0.issuer.rec.com/tls/ca.crt --peerAddresses peer0.buyer.rec.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/buyer.rec.com/peers/peer0.buyer.rec.com/tls/ca.crt -c '{"function":"CertificateContract:issueCertificate","Args":["CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140","ISSUER001"]}' --waitForEvent`
+}
+[0mPUT /api/certificates/issue/CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 [31m500[0m 162.724 ms - 1135[0m
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 12:46:49.263 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [552fb4cf9d79a5050227162228d3247bcf4d04493f5c63849c6d93ac4027e5b2] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 12:46:49.263 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [552fb4cf9d79a5050227162228d3247bcf4d04493f5c63849c6d93ac4027e5b2] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 12:46:49.263 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T12:45:40.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T12:46:47.000Z\",\"transactionId\":\"fabe21e66ef5a43ecfe621f3125487fad86f0350068938c2776202e1e811bea8\",\"issuanceTxId\":\"747a67e04170c07d68ad12376c374672b315e0f37db02fa5fedf24248c10bfcd\",\"completionTxId\":\"552fb4cf9d79a5050227162228d3247bcf4d04493f5c63849c6d93ac4027e5b2\"},\"certificateId\":\"CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and received by buyer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140-fabe21e66ef5\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-06T12:46:47.000Z\",\"expiresAt\":\"2026-11-06T12:46:21.000Z\",\"issuedAt\":\"2025-11-06T12:46:21.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T12:45:40.000Z\",\"requestedBy\":\"Vian\",\"completedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T12:45:40.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully
+[0mPUT /api/certificates/complete/CERT_REC-TRX-Q01TBUEF5H_CONSOLIDATED_1762433140 [32m200[0m 2220.397 ms - 274[0m
+🔄 Executing CLI command for requestCertificate with buyerId...
+📝 Data: {
+  certificateId: 'CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374',
+  energyDataId: 'ENERGI_PLTA_1762385181_195',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'generator', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 13:22:57.154 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [8b2f1716c55dfe06be3b55f7a9403cd80f2e51de49f440a954af8dc5cc6ec7b9] committed with status (VALID) at peer0.generator.rec.com:7051
+[34m2025-11-06 13:22:57.154 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [8b2f1716c55dfe06be3b55f7a9403cd80f2e51de49f440a954af8dc5cc6ec7b9] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 13:22:57.154 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer with payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"amount\":7000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-06T13:22:55.000Z\",\"requestedBy\":\"Vian\",\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T13:22:55.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"auditTrail\":{\"createdAt\":\"2025-11-06T13:22:55.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T13:22:55.000Z\",\"transactionId\":\"8b2f1716c55dfe06be3b55f7a9403cd80f2e51de49f440a954af8dc5cc6ec7b9\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374-8b2f1716c55d\"}}" 
+
+✅ Certificate request created successfully
+[0mPOST /api/certificates/request [32m201[0m 2260.405 ms - 336[0m
+🔄 Executing CLI command for issueCertificate with dynamic endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 13:23:51.269 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [b9fe822706ad76a889d96070f412550a937c9fc19e80ee904037abf358a45429] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 13:23:51.269 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [b9fe822706ad76a889d96070f412550a937c9fc19e80ee904037abf358a45429] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 13:23:51.269 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T13:22:55.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T13:23:49.000Z\",\"transactionId\":\"8b2f1716c55dfe06be3b55f7a9403cd80f2e51de49f440a954af8dc5cc6ec7b9\",\"issuanceTxId\":\"b9fe822706ad76a889d96070f412550a937c9fc19e80ee904037abf358a45429\"},\"certificateId\":\"CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate officially issued by authorized issuer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374-8b2f1716c55d\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"expiresAt\":\"2026-11-06T13:23:49.000Z\",\"issuedAt\":\"2025-11-06T13:23:49.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T13:22:55.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T13:22:55.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully
+[0mPUT /api/certificates/issue/CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374 [32m200[0m 2243.038 ms - 279[0m
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 13:24:06.408 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [a28807f9d2c150cbbd649c99d234737af0e273f60fddd86ac4f44c6ab3cee981] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 13:24:06.410 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [a28807f9d2c150cbbd649c99d234737af0e273f60fddd86ac4f44c6ab3cee981] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 13:24:06.410 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T13:22:55.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T13:24:04.000Z\",\"transactionId\":\"8b2f1716c55dfe06be3b55f7a9403cd80f2e51de49f440a954af8dc5cc6ec7b9\",\"issuanceTxId\":\"b9fe822706ad76a889d96070f412550a937c9fc19e80ee904037abf358a45429\",\"completionTxId\":\"a28807f9d2c150cbbd649c99d234737af0e273f60fddd86ac4f44c6ab3cee981\"},\"certificateId\":\"CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and received by buyer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374-8b2f1716c55d\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-06T13:24:04.000Z\",\"expiresAt\":\"2026-11-06T13:23:49.000Z\",\"issuedAt\":\"2025-11-06T13:23:49.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T13:22:55.000Z\",\"requestedBy\":\"Vian\",\"completedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T13:22:55.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully
+[0mPUT /api/certificates/complete/CERT_REC-TRX-E62L6UOIHL_CONSOLIDATED_1762435374 [32m200[0m 2230.927 ms - 274[0m
+🔄 Executing CLI command for requestCertificate with buyerId...
+📝 Data: {
+  certificateId: 'CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222',
+  energyDataId: 'ENERGI_PLTA_1762385181_195',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'generator', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 14:27:04.441 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [72e387084b971317b0b2b038e071b10bcd409596eb9f45eebd2eed124fea2e1c] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 14:27:04.441 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [72e387084b971317b0b2b038e071b10bcd409596eb9f45eebd2eed124fea2e1c] committed with status (VALID) at peer0.generator.rec.com:7051
+[34m2025-11-06 14:27:04.442 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"certificateId\":\"CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222\",\"version\":\"1.0\",\"certificateInfo\":{\"type\":\"REC\",\"status\":\"CERTIFICATE_REQUESTED\",\"statusDescription\":\"Certificate request submitted by buyer with payment confirmation\",\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\"},\"energyReference\":{\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"amount\":7000,\"unit\":\"kWh\",\"sourceType\":\"PLTA\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\"},\"parties\":{\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"issuer\":{\"issuerId\":null,\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"lifecycle\":{\"requestedAt\":\"2025-11-06T14:27:02.000Z\",\"requestedBy\":\"Vian\",\"issuedAt\":null,\"issuedBy\":null,\"completedAt\":null,\"expiresAt\":null},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T14:27:02.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"auditTrail\":{\"createdAt\":\"2025-11-06T14:27:02.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T14:27:02.000Z\",\"transactionId\":\"72e387084b971317b0b2b038e071b10bcd409596eb9f45eebd2eed124fea2e1c\"},\"compliance\":{\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"certificationBody\":\"AUTHORIZED_ISSUER\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\",\"serialNumber\":\"REC-CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222-72e387084b97\"}}" 
+
+✅ Certificate request created successfully
+[0mPOST /api/certificates/request [32m201[0m 2248.183 ms - 336[0m
+🔄 Executing CLI command for issueCertificate with dynamic endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222',
+  issuerId: 'ISSUER001',
+  endorsing_orgs: [ 'issuer', 'buyer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 14:29:55.018 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [715cf0d459698257a9437e886722cc9c5de1e7a16417baa5816e352b3cf14df1] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 14:29:55.019 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [715cf0d459698257a9437e886722cc9c5de1e7a16417baa5816e352b3cf14df1] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 14:29:55.019 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T14:27:02.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T14:29:52.000Z\",\"transactionId\":\"72e387084b971317b0b2b038e071b10bcd409596eb9f45eebd2eed124fea2e1c\",\"issuanceTxId\":\"715cf0d459698257a9437e886722cc9c5de1e7a16417baa5816e352b3cf14df1\"},\"certificateId\":\"CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"CERTIFICATE_ISSUED\",\"statusDescription\":\"Certificate officially issued by authorized issuer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222-72e387084b97\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":null,\"expiresAt\":\"2026-11-06T14:29:52.000Z\",\"issuedAt\":\"2025-11-06T14:29:52.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T14:27:02.000Z\",\"requestedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T14:27:02.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate issued successfully
+[0mPUT /api/certificates/issue/CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222 [32m200[0m 2268.529 ms - 279[0m
+🚀 Starting certificate completion process {
+  certId: 'CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222',
+  buyerId: 'Vian'
+}
+🔄 Executing CLI command for completeCertificate with buyer+issuer endorsement...
+📝 Data: {
+  certId: 'CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222',
+  buyerId: 'Vian',
+  endorsing_orgs: [ 'buyer', 'issuer' ]
+}
+📤 Raw stdout: 
+📤 Raw stderr: [34m2025-11-06 14:30:27.181 UTC 0001 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [9694177681379c5e05b2bc61713b62a60e07e838412354181c3830155b230008] committed with status (VALID) at peer0.buyer.rec.com:11051
+[34m2025-11-06 14:30:27.189 UTC 0002 INFO[0m [chaincodeCmd] [34;1mClientWait[0m -> txid [9694177681379c5e05b2bc61713b62a60e07e838412354181c3830155b230008] committed with status (VALID) at peer0.issuer.rec.com:9051
+[34m2025-11-06 14:30:27.190 UTC 0003 INFO[0m [chaincodeCmd] [34;1mchaincodeInvokeOrQuery[0m -> Chaincode invoke successful. result: status:200 payload:"{\"auditTrail\":{\"createdAt\":\"2025-11-06T14:27:02.000Z\",\"createdBy\":\"Vian\",\"lastModified\":\"2025-11-06T14:30:25.000Z\",\"transactionId\":\"72e387084b971317b0b2b038e071b10bcd409596eb9f45eebd2eed124fea2e1c\",\"issuanceTxId\":\"715cf0d459698257a9437e886722cc9c5de1e7a16417baa5816e352b3cf14df1\",\"completionTxId\":\"9694177681379c5e05b2bc61713b62a60e07e838412354181c3830155b230008\"},\"certificateId\":\"CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222\",\"certificateInfo\":{\"issuanceStandard\":\"INTERNATIONAL_REC_STANDARD_V2.0\",\"status\":\"COMPLETED\",\"statusDescription\":\"Certificate completed and received by buyer\",\"type\":\"REC\"},\"compliance\":{\"certificationBody\":\"AUTHORIZED_ISSUER\",\"regulatoryFramework\":\"INTERNATIONAL_REC_STANDARD\",\"serialNumber\":\"REC-CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222-72e387084b97\",\"trackingSystem\":\"BLOCKCHAIN_FABRIC\"},\"documentType\":\"RENEWABLE_ENERGY_CERTIFICATE\",\"energyReference\":{\"amount\":7000,\"energyDataId\":\"ENERGI_PLTA_1762385181_195\",\"generationDate\":\"2017-07-07\",\"location\":\"Indonesia\",\"sourceType\":\"PLTA\",\"unit\":\"kWh\"},\"lifecycle\":{\"completedAt\":\"2025-11-06T14:30:25.000Z\",\"expiresAt\":\"2026-11-06T14:29:52.000Z\",\"issuedAt\":\"2025-11-06T14:29:52.000Z\",\"issuedBy\":\"ISSUER001\",\"requestedAt\":\"2025-11-06T14:27:02.000Z\",\"requestedBy\":\"Vian\",\"completedBy\":\"Vian\"},\"parties\":{\"buyer\":{\"buyerId\":\"Vian\",\"organizationType\":\"ENERGY_BUYER\",\"role\":\"CERTIFICATE_PURCHASER\"},\"generator\":{\"generatorId\":\"GEN_PLTA_4\",\"organizationType\":\"RENEWABLE_ENERGY_GENERATOR\",\"role\":\"ENERGY_PRODUCER\"},\"issuer\":{\"issuerId\":\"ISSUER001\",\"organizationType\":\"AUTHORIZED_CERTIFICATE_ISSUER\",\"role\":\"CERTIFICATE_AUTHORITY\"}},\"paymentDetails\":{\"paymentConfirmed\":true,\"paymentConfirmedAt\":\"2025-11-06T14:27:02.000Z\",\"paymentConfirmedBy\":\"Vian\"},\"version\":\"1.0\"}" 
+
+✅ Certificate completed successfully
+[0mPUT /api/certificates/complete/CERT_REC-TRX-DFQIWOEGWL_CONSOLIDATED_1762439222 [32m200[0m 2248.024 ms - 274[0m

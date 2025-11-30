@@ -1,0 +1,28 @@
+{
+  "name": "rec-chaincode",
+  "version": "1.0.0",
+  "description": "Renewable Energy Certificate (REC) Chaincode",
+  "main": "index.js",
+  "scripts": {
+    "start": "fabric-chaincode-node start"
+  },
+  "keywords": [
+    "hyperledger",
+    "fabric",
+    "chaincode",
+    "renewable-energy",
+    "certificate"
+  ],
+  "author": "REC Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "fabric-contract-api": "^2.5.8",
+    "fabric-shim": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
